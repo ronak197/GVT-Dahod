@@ -168,14 +168,15 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(10.0),
-                          highlightColor: Colors.white,
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xffD9D24B),
-                            child: Image.asset("assets/infoIcon.png",scale: 1.25,),
-                            radius: 40.0,
-                          ),
+                        onPressed: () {},
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(10.0),
+                        highlightColor: Colors.white,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffD9D24B),
+                          child: Image.asset("assets/infoIcon.png",scale: 1.25,),
+                          radius: 40.0,
+                        ),
                       ),
                     ),
                     Container(
@@ -203,6 +204,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
+                        onPressed: () {},
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,
@@ -238,6 +240,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
+                        onPressed: () {},
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,
@@ -273,6 +276,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
+                        onPressed: () {},
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,
