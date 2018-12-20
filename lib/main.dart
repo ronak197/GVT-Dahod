@@ -1,111 +1,306 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      home: HomePage(),
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Color(0xffada505),
+        ),
+        title: Text("Gramin Vikas Trust",style: TextStyle(color: Color(0xff5C5303)),),
+        centerTitle: true,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      drawer: Drawer(
+          child: Container(
+            color: Color(0xffFAF8D1),
+            child: ListView(
+              children: <Widget>[
+                DrawerHeader(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
+                      new CircleAvatar(
+                        child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
+                        backgroundColor: Color(0xffF7F071),
+                        radius: 30.0,
+                      ),
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
+                      new Text("Contracter", style: TextStyle(color: Colors.black87),),
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
+                      new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: FlatButton(
+                    onPressed:() {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("Sign Up/Login"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: FlatButton(
+                    onPressed:() {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("Profile"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: FlatButton(
+                    onPressed:() {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.photo_library, color: Color(0xffD9D24B), size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("Gallery"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: FlatButton(
+                    materialTapTargetSize: MaterialTapTargetSize.padded,
+                    onPressed:() {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.info, color: Color(0xffD9D24B),size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("About Us"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: FlatButton(
+                    onPressed:() {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("Contact Us"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+          ),
+        ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(bottom: 20.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 15.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.asset("assets/image1.png"),
+              ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Text.rich(
+                  TextSpan(text: "Let's make our life successful, are you financially unemployed? Yes .. So let's go" ,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black87,
+                      letterSpacing: 0.5,
+                      height: 1.25
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0,left: 30.0, right: 30.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Image.asset("assets/imageIcon.png"),
+                      alignment: Alignment.topCenter,
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: RawMaterialButton(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(10.0),
+                          highlightColor: Colors.white,
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xffD9D24B),
+                            child: Image.asset("assets/infoIcon.png",scale: 1.25,),
+                            radius: 40.0,
+                          ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 100.0,left: 20.0, right: 20.0),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Get Info. about enrollment criteria and priveleges",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Image.asset("assets/imageIcon.png"),
+                      alignment: Alignment.topCenter,
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: RawMaterialButton(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(10.0),
+                        highlightColor: Colors.white,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffD9D24B),
+                          child: Image.asset("assets/profilesIcon.png", scale: 1.25,),
+                          radius: 40.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 100.0,left: 20.0, right: 20.0),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Find the company best suited for your choice",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0,left: 30.0,right: 30.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Image.asset("assets/imageIcon.png"),
+                      alignment: Alignment.topCenter,
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: RawMaterialButton(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(10.0),
+                        highlightColor: Colors.white,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffD9D24B),
+                          child: Image.asset("assets/workerIcon.png",scale: 1.25,),
+                          radius: 40.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 100.0,left: 20.0, right: 20.0),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Find suitable candidtate for your work",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      child: Image.asset("assets/imageIcon.png"),
+                      alignment: Alignment.topCenter,
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: RawMaterialButton(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(10.0),
+                        highlightColor: Colors.white,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffD9D24B),
+                          child: Image.asset("assets/supportIcon.png",scale: 1.25,),
+                          radius: 40.0,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 100.0,left: 20.0, right: 20.0),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        "Contact us to know further information",
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
