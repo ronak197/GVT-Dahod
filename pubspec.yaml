@@ -44,6 +44,14 @@ flutter:
     - assets/profilesIcon.png
     - assets/supportIcon.png
     - assets/workerIcon.png
+    - assets/mason_white.png
+    - assets/painter_white.png
+    - assets/pliers_white.png
+    - assets/plumber_white.png
+    - assets/drawable-xxxhdpi/pliers_box.png
+    - assets/drawable-xxxhdpi/plumber_box.png
+    - assets/drawable-xxxhdpi/painter_box.png
+    - assets/drawable-xxxhdpi/mason_box.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

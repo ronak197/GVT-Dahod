@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'recruitment_details.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new RecruitmentPage());
 
 class MyApp extends StatelessWidget {
   @override
