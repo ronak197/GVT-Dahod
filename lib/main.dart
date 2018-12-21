@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'recruitment_details.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-void main() => runApp(new RecruitmentPage());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,12 +16,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<String> carouselImages = new List();
+
+  @override
+  void initState() {
+    carouselImages.add('assets/image1.png');
+    carouselImages.add('assets/image2.png');
+    carouselImages.add('assets/image3.png');
+    carouselImages.add('assets/image4.png');
+    carouselImages.add('assets/image5.png');
+    carouselImages.add('assets/image6.png');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +152,50 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 15.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Image.asset("assets/image1.png"),
-              ),
+                padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
+                child: CarouselSlider(
+                  autoPlay: true,
+                  interval: Duration(seconds: 3),
+                  autoPlayDuration: Duration(milliseconds: 800),
+                  items: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[0],scale: 2,fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[1], scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[2],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[3],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[4],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[5],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -150,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.black87,
-                      letterSpacing: 0.5,
+                      letterSpacing: 0.25,
                       height: 1.25
                     ),
                   ),
