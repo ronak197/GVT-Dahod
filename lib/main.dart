@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'select_work_home.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new AnimationDemo());
 
 class MyApp extends StatelessWidget {
   @override
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(
           color: Color(0xffada505),
         ),
-        title: Text("Gramin Vikas Trust",style: TextStyle(color: Color(0xff5C5303)),),
+        title: Text("Gramin Vikas Trust",style: TextStyle(color: Color(0xffAA9900)),),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -148,6 +149,8 @@ class _HomePageState extends State<HomePage> {
         ),
       body: SingleChildScrollView(
         child: Container(
+          decoration: BoxDecoration(
+          ),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
