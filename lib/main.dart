@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'select_work_home.dart';
+import 'loginpage.dart';
 
-void main() => runApp(new AnimationDemo());
+void main() => runApp(new LoginPage());
 
 class MyApp extends StatelessWidget {
   @override
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xffFFFDBB),
         iconTheme: IconThemeData(
           color: Color(0xffada505),
         ),
@@ -149,8 +150,14 @@ class _HomePageState extends State<HomePage> {
         ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-          ),
+          color: Color(0xffFFFDBB),
+//          decoration: BoxDecoration(
+////            image: DecorationImage(
+////              image: AssetImage("assets/drawable-xxxhdpi/bgimage.png"),
+////              alignment: Alignment.topCenter,
+////              repeat: ImageRepeat.repeatY
+////            ),
+//          ),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
@@ -207,7 +214,6 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.black87,
-                      letterSpacing: 0.25,
                       height: 1.25
                     ),
                   ),
