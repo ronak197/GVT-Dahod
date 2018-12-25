@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'recruitment_details.dart';
+import 'package:gvtdahod/recruitment_details.dart';
+import 'package:gvtdahod/company_registration.dart';
+import 'package:gvtdahod/worker_registration.dart';
 
-void main() => runApp(new RecruitmentPage());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: WorkerRegistrationPage(),
       theme: ThemeData(
         primarySwatch: Colors.yellow
       ),
