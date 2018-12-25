@@ -3,6 +3,7 @@ import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'select_work_home.dart';
 import 'loginpage.dart';
+import 'profilepage.dart';
 
 void main() => runApp(new LoginPage());
 
@@ -89,7 +90,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   child: FlatButton(
-                    onPressed:() {},
+                    onPressed:() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>new ProfilePage()
+                        ));
+                    },
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
