@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPageHome(),
-    );
-  }
-}
-
 class LoginPageHome extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();

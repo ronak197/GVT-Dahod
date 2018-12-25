@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
 
-class RecruitmentPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-      ),
-      home: RecruitmentPageDetails(),
-    );
-  }
-}
-
 class RecruitmentPageDetails extends StatefulWidget {
   @override
   _RecruitmentPageDetailsState createState() => _RecruitmentPageDetailsState();
