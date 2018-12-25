@@ -11,7 +11,12 @@ class _RecruitmentPageDetailsState extends State<RecruitmentPageDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Recruitment Details",style: TextStyle(color: Color(0xff5C5303)),),
+        title: Text(
+          "Recruitment Details",
+          style: TextStyle(
+            color: Color(0xff5C5303)
+          ),
+        ),
         centerTitle: true,
         elevation: 0.0,
       ),

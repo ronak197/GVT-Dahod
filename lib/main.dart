@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'select_work_home.dart';
-import 'loginpage.dart';
+
+import 'package:gvtdahod/recruitment_details.dart';
+import 'package:gvtdahod/company_registration.dart';
+import 'package:gvtdahod/worker_registration.dart';
+import 'package:gvtdahod/select_work_home.dart';
+import 'package:gvtdahod/loginpage.dart';
 
 void main() => runApp(new MyApp());
-
+  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
