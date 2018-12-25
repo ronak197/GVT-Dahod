@@ -5,7 +5,7 @@ import 'select_work_home.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
 
-void main() => runApp(new LoginPage());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override

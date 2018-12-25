@@ -28,13 +28,13 @@ class ProfilePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      constraints: BoxConstraints(
-                        maxHeight: 50.0,
-                        maxWidth: 50.0,
-                        minHeight: 50.0,
-                        minWidth: 50.0
+                      width: 100.0,
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        color: Colors.greenAccent,
                       ),
-                      child: Image.asset('assets/infoIcon.jpg',fit: BoxFit.cover),
+                      child: Image.asset('assets/passportphoto.png',height: 100.0, width: 100.0)
                     ),
 
                     Column(
