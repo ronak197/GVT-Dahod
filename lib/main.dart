@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:gvtdahod/recruitment_details.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/worker_registration.dart';
+import 'package:gvtdahod/select_work_home.dart';
+import 'package:gvtdahod/loginpage.dart';
 
 void main() => runApp(new MyApp());
-
+  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,6 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -24,16 +29,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  List<String> carouselImages = new List();
+
+  @override
+  void initState() {
+    carouselImages.add('assets/image1.png');
+    carouselImages.add('assets/image2.png');
+    carouselImages.add('assets/image3.png');
+    carouselImages.add('assets/image4.png');
+    carouselImages.add('assets/image5.png');
+    carouselImages.add('assets/image6.png');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xffFFFDBB),
         iconTheme: IconThemeData(
           color: Color(0xffada505),
         ),
-        title: Text("Gramin Vikas Trust",style: TextStyle(color: Color(0xff5C5303)),),
+        title: Text("Gramin Vikas Trust",style: TextStyle(color: Color(0xffAA9900)),),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -135,15 +153,62 @@ class _HomePageState extends State<HomePage> {
         ),
       body: SingleChildScrollView(
         child: Container(
+          color: Color(0xffFFFDBB),
+//          decoration: BoxDecoration(
+////            image: DecorationImage(
+////              image: AssetImage("assets/drawable-xxxhdpi/bgimage.png"),
+////              alignment: Alignment.topCenter,
+////              repeat: ImageRepeat.repeatY
+////            ),
+//          ),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 15.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Image.asset("assets/image1.png"),
-              ),
+                padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
+                child: CarouselSlider(
+                  autoPlay: true,
+                  interval: Duration(seconds: 3),
+                  autoPlayDuration: Duration(milliseconds: 800),
+                  items: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[0],scale: 2,fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[1], scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[2],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[3],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[4],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(carouselImages[5],scale: 2, fit: BoxFit.fill,),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -152,7 +217,6 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.black87,
-                      letterSpacing: 0.5,
                       height: 1.25
                     ),
                   ),
