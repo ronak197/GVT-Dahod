@@ -4,8 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'select_work.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
+import 'nominee_list.dart';
 
-void main() => runApp(SelectWork());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
