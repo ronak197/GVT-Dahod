@@ -37,7 +37,7 @@ class _RecruitmentPageDetailsState extends State<RecruitmentPageDetails> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      child: Image.asset("assets/drawable-xxxhdpi/plumber_box.png"),
+                      child: Image.asset("assets/plumber_box.png"),
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -79,7 +79,7 @@ class _RecruitmentPageDetailsState extends State<RecruitmentPageDetails> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      child: Image.asset("assets/drawable-xxxhdpi/painter_box.png"),
+                      child: Image.asset("assets/painter_box.png"),
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -121,7 +121,7 @@ class _RecruitmentPageDetailsState extends State<RecruitmentPageDetails> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      child: Image.asset("assets/drawable-xxxhdpi/mason_box.png"),
+                      child: Image.asset("assets/mason_box.png"),
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -163,7 +163,7 @@ class _RecruitmentPageDetailsState extends State<RecruitmentPageDetails> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      child: Image.asset("assets/drawable-xxxhdpi/pliers_box.png",filterQuality: FilterQuality.high,),
+                      child: Image.asset("assets/pliers_box.png",filterQuality: FilterQuality.high,),
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 20.0, right: 20.0),

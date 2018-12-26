@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'select_work_home.dart';
+import 'select_work.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(SelectWork());
 
 class MyApp extends StatelessWidget {
   @override
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
           color: Color(0xffFFFDBB),
 //          decoration: BoxDecoration(
 ////            image: DecorationImage(
-////              image: AssetImage("assets/drawable-xxxhdpi/bgimage.png"),
+////              image: AssetImage("assets/bgimage.png"),
 ////              alignment: Alignment.topCenter,
 ////              repeat: ImageRepeat.repeatY
 ////            ),
