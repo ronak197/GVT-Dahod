@@ -10,6 +10,7 @@ class _CompanyRegistrationPageState extends State<CompanyRegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Gramin Vikas Trust",
           style: TextStyle(
@@ -29,84 +30,98 @@ class _CompanyRegistrationPageState extends State<CompanyRegistrationPage> {
         color: Color(0xFFF6F5E4),
         child: ListView(
           children: <Widget>[
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFFAA9900),
-              ),
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.people,
-                  color: Color(0xFFAA9900)
+            Container(
+              padding: EdgeInsets.only(bottom: 5.0, left: 10.0, right: 10.0),
+              child: TextFormField(
+                style: TextStyle(
+                  color: Color(0xFFAA9900),
                 ),
-                hintText: "Company Name",
-                hintStyle: TextStyle(
-                  color: Color(0xFFAA9900)
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.people,
                     color: Color(0xFFAA9900)
+                  ),
+                  hintText: "Company Name",
+                  hintStyle: TextStyle(
+                    color: Color(0xFFAA9900)
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFAA9900)
+                    )
                   )
-                )
+                ),
               ),
             ),
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFFAA9900),
-              ),
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.location_on,
-                  color: Color(0xFFAA9900)
+            Container(
+              padding: EdgeInsets.only(bottom: 5.0, right: 10.0,  left: 10.0),
+              child: TextFormField(
+                style: TextStyle(
+                  color: Color(0xFFAA9900),
                 ),
-                hintText: "City",
-                hintStyle: TextStyle(
-                  color: Color(0xFFAA9900)
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.location_on,
                     color: Color(0xFFAA9900)
+                  ),
+                  hintText: "City",
+                  hintStyle: TextStyle(
+                    color: Color(0xFFAA9900)
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFAA9900)
+                    )
                   )
-                )
+                ),
               ),
             ),
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFFAA9900),
-              ),
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.mail,
-                  color: Color(0xFFAA9900)
+            Container(
+              padding: EdgeInsets.only(bottom: 5.0, left: 10.0, right: 10.0),
+              child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                style: TextStyle(
+                  color: Color(0xFFAA9900),
                 ),
-                hintText: "Email",
-                hintStyle: TextStyle(
-                  color: Color(0xFFAA9900)
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.mail,
                     color: Color(0xFFAA9900)
+                  ),
+                  hintText: "Email",
+                  hintStyle: TextStyle(
+                    color: Color(0xFFAA9900)
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFAA9900)
+                    )
                   )
-                )
+                ),
               ),
             ),
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFFAA9900),
-              ),
-              decoration: new InputDecoration(
-                prefixIcon: Icon(
-                  Icons.phone,
-                  color: Color(0xFFAA9900)
+            Container(
+              padding: EdgeInsets.only(bottom: 5.0, right: 10.0, left: 10.0),
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: TextStyle(
+                  color: Color(0xFFAA9900),
                 ),
-                hintText: "Contact Number",
-                hintStyle: TextStyle(
-                  color: Color(0xFFAA9900)
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.phone,
                     color: Color(0xFFAA9900)
+                  ),
+                  hintText: "Contact Number",
+                  hintStyle: TextStyle(
+                    color: Color(0xFFAA9900)
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFAA9900)
+                    )
                   )
-                )
+                ),
               ),
             ),
             SizedBox(
@@ -123,12 +138,12 @@ class _CompanyRegistrationPageState extends State<CompanyRegistrationPage> {
                     "Next",
                     style: TextStyle(
                       color: Color(0xFFAA9900),
-                      fontSize: 15.0
-                    )
+                      fontSize: 15.0,
+                    ),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)
-                  )
+                  ),
                 ),
               ]
             ),

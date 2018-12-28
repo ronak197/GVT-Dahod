@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gvtdahod/recruitment_details.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/worker_registration.dart';
-import 'package:gvtdahod/select_work_home.dart';
 import 'package:gvtdahod/nominee_list.dart';
 import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/loginpage.dart';
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPageHome(),
+      home: CompanyRegistrationPage(),
       theme: ThemeData(
         primarySwatch: Colors.yellow
       ),
