@@ -5,9 +5,11 @@ import 'package:gvtdahod/recruitment_details.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/worker_registration.dart';
 import 'package:gvtdahod/select_work_home.dart';
+import 'package:gvtdahod/nominee_list.dart';
+import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/loginpage.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
   
 class MyApp extends StatelessWidget {
   @override
@@ -92,7 +94,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   child: FlatButton(
-                    onPressed:() {},
+                    onPressed:() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>new ProfilePage()
+                        ));
+                    },
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
@@ -156,7 +162,7 @@ class _HomePageState extends State<HomePage> {
           color: Color(0xffFFFDBB),
 //          decoration: BoxDecoration(
 ////            image: DecorationImage(
-////              image: AssetImage("assets/drawable-xxxhdpi/bgimage.png"),
+////              image: AssetImage("assets/bgimage.png"),
 ////              alignment: Alignment.topCenter,
 ////              repeat: ImageRepeat.repeatY
 ////            ),
