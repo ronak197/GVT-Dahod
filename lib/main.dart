@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'select_work.dart';
+import 'loginpage.dart';
+import 'profilepage.dart';
+import 'nominee_list.dart';
+import 'gallery.dart';
 
 import 'package:gvtdahod/course_registration.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
@@ -127,6 +132,22 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                Container(
+                  child: FlatButton(
+                    onPressed:() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>new GalleryClass()
+                        ));
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.photo_library, color: Color(0xffD9D24B), size: 22.0,),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text("Gallery"),
+                        ),
+                      ],
+                    ),
               ),
               Container(
                 child: FlatButton(
