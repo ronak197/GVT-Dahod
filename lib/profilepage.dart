@@ -25,7 +25,6 @@ class ProfilePage extends StatelessWidget {
             padding: EdgeInsets.only(left: 20.0, bottom: 30.0, top: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              
               children: <Widget>[
                 Container(
                   height: 95.0,

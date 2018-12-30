@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'recruitment_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+<<<<<<< HEAD
 import 'select_work.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
 import 'nominee_list.dart';
 import 'gallery.dart';
+=======
+>>>>>>> 95d7de6f62270e39111483aafd583e9e1144cd0b
+
+import 'package:gvtdahod/course_registration.dart';
+import 'package:gvtdahod/loginpage_worker.dart';
+import 'package:gvtdahod/loginpage_company.dart';
 
 void main() => runApp(MyApp());
-
+  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -55,59 +61,80 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-          child: Container(
-            color: Color(0xffFAF8D1),
-            child: ListView(
-              children: <Widget>[
-                DrawerHeader(
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Container(
+          color: Color(0xffFAF8D1),
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
+                    new CircleAvatar(
+                      child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
+                      backgroundColor: Color(0xffF7F071),
+                      radius: 30.0,
+                    ),
+                    new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
+                    new Text("Contracter", style: TextStyle(color: Colors.black87),),
+                    new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
+                    new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                  ],
+                ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new LoginPageCompanyHome()),
+                    );
+                  },
+                  child: Row(
                     children: <Widget>[
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
-                      new CircleAvatar(
-                        child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
-                        backgroundColor: Color(0xffF7F071),
-                        radius: 30.0,
+                      Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Sign In for Contracter"),
                       ),
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
-                      new Text("Contracter", style: TextStyle(color: Colors.black87),),
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
-                      new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
                     ],
                   ),
                 ),
-                Container(
-                  child: FlatButton(
-                    onPressed:() {},
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text("Sign Up/Login"),
-                        ),
-                      ],
-                    ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new LoginPageWorkerHome()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.person_pin, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Login for Candidate"),
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  child: FlatButton(
-                    onPressed:() {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) =>new ProfilePage()
-                        ));
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text("Profile"),
-                        ),
-                      ],
-                    ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => new CourseRegistrationPage()
+                      ));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.receipt, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Register for the course"),
+                      ),
+                    ],
                   ),
                 ),
+<<<<<<< HEAD
                 Container(
                   child: FlatButton(
                     onPressed:() {
@@ -124,40 +151,55 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
+=======
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {},
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.photo_library, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Gallery"),
+                      ),
+                    ],
+>>>>>>> 95d7de6f62270e39111483aafd583e9e1144cd0b
                   ),
                 ),
-                Container(
-                  child: FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    onPressed:() {},
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.info, color: Color(0xffD9D24B),size: 22.0,),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text("About Us"),
-                        ),
-                      ],
-                    ),
+              ),
+              Container(
+                child: FlatButton(
+                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  onPressed:() {},
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.info, color: Color(0xffD9D24B),size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("About Us"),
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  child: FlatButton(
-                    onPressed:() {},
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text("Contact Us"),
-                        ),
-                      ],
-                    ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {},
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Contact Us"),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
         ),
       body: SingleChildScrollView(
         child: Container(
