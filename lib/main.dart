@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-<<<<<<< HEAD
 import 'select_work.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
 import 'nominee_list.dart';
 import 'gallery.dart';
-=======
->>>>>>> 95d7de6f62270e39111483aafd583e9e1144cd0b
 
 import 'package:gvtdahod/course_registration.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
@@ -134,7 +131,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-<<<<<<< HEAD
                 Container(
                   child: FlatButton(
                     onPressed:() {
@@ -151,7 +147,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-=======
               ),
               Container(
                 child: FlatButton(
@@ -164,7 +159,6 @@ class _HomePageState extends State<HomePage> {
                         child: Text("Gallery"),
                       ),
                     ],
->>>>>>> 95d7de6f62270e39111483aafd583e9e1144cd0b
                   ),
                 ),
               ),
