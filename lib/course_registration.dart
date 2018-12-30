@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:gvtdahod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -87,6 +88,13 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
         showLoading();
         await performRegistration();
         Navigator.pop(context);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage()
+          ),
+          (Route<dynamic> route) => false
+        );
         break;
     }
   }
