@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class GalleryClass extends StatelessWidget {
+class GalleryPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

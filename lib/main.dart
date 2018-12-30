@@ -9,6 +9,7 @@ import 'gallery.dart';
 import 'package:gvtdahod/course_registration.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
 import 'package:gvtdahod/loginpage_company.dart';
+import 'package:gvtdahod/gallery.dart';
 
 void main() => runApp(MyApp());
   
@@ -119,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed:() {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) => new CourseRegistrationPage()
-                      ));
+                    ));
                   },
                   child: Row(
                     children: <Widget>[
@@ -150,7 +151,11 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: FlatButton(
-                  onPressed:() {},
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => new GalleryPage()
+                    ));
+                  },
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.photo_library, color: Color(0xffD9D24B), size: 22.0,),
