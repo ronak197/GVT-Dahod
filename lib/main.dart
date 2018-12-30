@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'package:gvtdahod/recruitment_details.dart';
-import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/course_registration.dart';
-import 'package:gvtdahod/nominee_list.dart';
-import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
-import 'loginpage_company.dart';
+import 'package:gvtdahod/loginpage_company.dart';
 
 void main() => runApp(MyApp());
   
