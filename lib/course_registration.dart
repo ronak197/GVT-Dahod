@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +8,7 @@ class CourseRegistrationPage extends StatefulWidget {
   _CourseRegistrationPageState createState() => _CourseRegistrationPageState();
 }
 
+enum confirmationAnswer{YES, NO}
 class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -30,11 +32,11 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
     final form = formKey.currentState;
     if (form.validate()) {
       form.save();
-      performRegistration();
+      askForConfirmation();
     }
   }
 
-  void performRegistration(){
+  Future<void> performRegistration() async {
     Map<String,String> registrationProfile = <String,String>{
       "full name" : candidateName,
       "address" : address,
@@ -44,9 +46,84 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
       "gender" : selectedGender,
       "work" : selectedWork
     };
-    documentReference.setData(registrationProfile).whenComplete((){
+    await documentReference.setData(registrationProfile).whenComplete((){
       print("Document Added");
     }).catchError((e) => print(e));
+  }
+
+  Future<Null> askForConfirmation() async {
+    switch(
+      await showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return SimpleDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))
+            ),
+            title: Text("Do you want to proceed?"),
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  SimpleDialogOption(
+                    onPressed: (){
+                      Navigator.pop(context, confirmationAnswer.YES);
+                    },
+                    child: Text("Yes")
+                  ),
+                  SimpleDialogOption(
+                    onPressed: (){
+                      Navigator.pop(context, confirmationAnswer.NO);
+                    },
+                    child: Text("NO")
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+      )
+    ){
+      case confirmationAnswer.YES:
+        showLoading();
+        await performRegistration();
+        Navigator.pop(context);
+        break;
+    }
+  }
+
+  void showLoading() async {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))
+          ),
+          contentPadding: EdgeInsets.all(0.0),
+          content: Container(
+            width: 250.0,
+            height: 100.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                SizedBox(
+                  width: 15.0
+                ),
+                Text(
+                  "Sending, Please Wait..",
+                  style: TextStyle(
+                    fontFamily: "OpenSans",
+                    color: Color(0xFF5B69778)
+                  ),
+                )
+              ],
+            )
+          )
+        );
+      }
+    );
   }
 
   @override
