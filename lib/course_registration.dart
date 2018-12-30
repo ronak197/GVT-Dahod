@@ -52,6 +52,52 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
     }).catchError((e) => print(e));
   }
 
+  Future<Null> dialogAfterSuccess() async {
+    switch(
+      await showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return SimpleDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))
+            ),
+            title: Text(
+              "Successfully Posted.",
+              style: TextStyle(
+                fontFamily: "OpenSans",
+                color: Color(0xFF5B69778)
+              ),
+            ),
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SimpleDialogOption(
+                    onPressed: (){
+                      Navigator.pop(context, confirmationAnswer.YES);
+                    },
+                    child: Text("Okay")
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+      )
+    ){
+      case confirmationAnswer.YES:
+        Navigator.pop(context);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage()
+          ),
+          (Route<dynamic> route) => false
+        );
+        break;
+    }
+  }
+
   Future<Null> askForConfirmation() async {
     switch(
       await showDialog(
@@ -61,7 +107,13 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))
             ),
-            title: Text("Do you want to proceed?"),
+            title: Text(
+              "Do you want to proceed?",
+              style: TextStyle(
+                fontFamily: "OpenSans",
+                color: Color(0xFF5B69778)
+              ),
+            ),
             children: <Widget>[
               Row(
                 children: <Widget>[
@@ -87,14 +139,7 @@ class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
       case confirmationAnswer.YES:
         showLoading();
         await performRegistration();
-        Navigator.pop(context);
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage()
-          ),
-          (Route<dynamic> route) => false
-        );
+        dialogAfterSuccess();
         break;
     }
   }
