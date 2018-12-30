@@ -1,14 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class WorkerRegistrationPage extends StatefulWidget {
+class CourseRegistrationPage extends StatefulWidget {
   @override
-  _WorkerRegistrationPageState createState() => _WorkerRegistrationPageState();
+  _CourseRegistrationPageState createState() => _CourseRegistrationPageState();
 }
 
-class _WorkerRegistrationPageState extends State<WorkerRegistrationPage> {
+class _CourseRegistrationPageState extends State<CourseRegistrationPage> {
+
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final formKey = new GlobalKey<FormState>();
+
+  List<String> _workList = ["Plumber", "Painter", "Mason", "Barbinder or shuttering"];
+  List<String> _casteList = ["SC", "ST", "OBC"];
+  List<String> _genderList = ["Male","Female","Other"];
+
+  static String candidateName;
+  static String address;
+  static String contactNo;
+  static String dateOfBirth;
+  static String selectedCaste = 'Select Caste';
+  static String selectedWork = 'Select Work';
+  static String selectedGender = 'Select Gender';
+
+  static final DocumentReference documentReference = Firestore.instance.document("admin/course registration/trainees/$candidateName");
+
+  void _submit() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      performRegistration();
+    }
+  }
+
+  void performRegistration(){
+    Map<String,String> registrationProfile = <String,String>{
+      "full name" : candidateName,
+      "address" : address,
+      "contact no." : contactNo,
+      "date of birth" : dateOfBirth,
+      "caste" : selectedCaste,
+      "gender" : selectedGender,
+      "work" : selectedWork
+    };
+    documentReference.setData(registrationProfile).whenComplete((){
+      print("Document Added");
+    }).catchError((e) => print(e));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Color(0xfff6f5e4),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -18,125 +63,197 @@ class _WorkerRegistrationPageState extends State<WorkerRegistrationPage> {
           )
         ),
         elevation: 0.0,
-        leading: Icon(
-          Icons.arrow_back,
-          color: Color(0xFFAA9900),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color(0xffaa9900),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          }
         ),
         backgroundColor: Color(0xFFF6F5E4),
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),
-        color: Color(0xFFF6F5E4),
-        child: ListView(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
-              child: TextFormField(
-                style: TextStyle(
-                  color: Color(0xFFAA9900),
-                ),
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Color(0xFFAA9900)
-                  ),
-                  hintText: "Candidate Name",
-                  hintStyle: TextStyle(
-                    color: Color(0xFFAA9900)
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFAA9900)
-                    )
-                  )
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
-              child: TextFormField(
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.location_on,
-                    color: Color(0xFFAA9900)
-                  ),
-                  hintText: "Address",
-                  hintStyle: TextStyle(
-                    color: Color(0xFFAA9900)
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFAA9900)
-                    )
-                  )
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: 5.0, right: 10.0, left: 10.0),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.phone,
-                    color: Color(0xFFAA9900)
-                  ),
-                  hintText: "Contact Number",
-                  hintStyle: TextStyle(
-                    color: Color(0xFFAA9900)
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFAA9900)
-                    )
-                  )
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 10.0,right: 10.0, bottom: 5.0),
-              child: TextFormField(
-                decoration: new InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.today,
-                    color: Color(0xFFAA9900)
-                  ),
-                  hintText: "Date of Birth",
-                  hintStyle: TextStyle(
-                    color: Color(0xFFAA9900)
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFAA9900)
-                    )
-                  )
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.0
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
               children: <Widget>[
-                RaisedButton(
-                  color: Color(0xFFF5E44A),
-                  onPressed: (){},
-                  elevation: 0.0,
-                  child: Text(
-                    "Register",
+                Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
+                  child: TextFormField(
                     style: TextStyle(
                       color: Color(0xFFAA9900),
-                      fontSize: 15.0
-                    )
+                    ),
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Color(0xFFAA9900)
+                      ),
+                      hintText: "Candidate Name",
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAA9900)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFAA9900)
+                        )
+                      )
+                    ),
+                    validator: (val) => val.length <= 2 ? 'Too Short' : null,
+                    onSaved: (val) => candidateName = val,
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)
-                  )
                 ),
-              ]
+                Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
+                  child: TextFormField(
+                    style: TextStyle(
+                      color: Color(0xFFAA9900)
+                    ),
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.location_on,
+                        color: Color(0xFFAA9900)
+                      ),
+                      hintText: "Address",
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAA9900)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFAA9900)
+                        )
+                      )
+                    ),
+                    validator: (val) => val.length <= 4 ? 'Too Short' : null,
+                    onSaved: (val) => address = val,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 5.0, right: 10.0, left: 10.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      color: Color(0xFFAA9900),
+                    ),
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.phone,
+                        color: Color(0xFFAA9900)
+                      ),
+                      hintText: "Contact Number",
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAA9900)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFAA9900)
+                        )
+                      )
+                    ),
+                    validator: (val) => val.length !=10 ? 'Type 10 digit mobile no.' : null,
+                    onSaved: (val) => contactNo = val,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 10.0,right: 10.0, bottom: 5.0),
+                  child: TextFormField(
+                    style: TextStyle(
+                      color: Color(0xFFAA9900)
+                    ),
+                    decoration: new InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.today,
+                        color: Color(0xFFAA9900)
+                      ),
+                      hintText: "Date of Birth (dd/mm/yyyy)",
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAA9900)
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFAA9900)
+                        )
+                      )
+                    ),
+                    validator: (val) => val.length <= 5 ? 'Invalid Format' : null,
+                    onSaved: (val) => dateOfBirth = val,
+                  ),
+                ),
+                Wrap(
+                  alignment: WrapAlignment.start,
+                  spacing: 10.0,
+                  runAlignment: WrapAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: DropdownButton<String>(
+                        isExpanded: false,
+                        items: _workList.map((String val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: new Text(val),
+                          );
+                        }).toList(),
+                        hint: Text(selectedWork,style: new TextStyle(color: Color(0xffaa9900)),),
+                        onChanged: (newVal) {
+                          selectedWork = newVal;
+                          this.setState(() {});
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: DropdownButton<String>(
+                        isExpanded: false,
+                        items: _casteList.map((String val) {
+                          return new DropdownMenuItem<String>(
+                            value: val,
+                            child: new Text(val),
+                          );
+                        }).toList(),
+                        hint: Text(selectedCaste,style: new TextStyle(color: Color(0xffaa9900)),),
+                        onChanged: (newVal) {
+                          selectedCaste = newVal;
+                          this.setState(() {});
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: DropdownButton<String>(
+                        isExpanded: false,
+                        items: _genderList.map((String val) {
+                          return new DropdownMenuItem<String>(
+                            value: val,
+                            child: new Text(val),
+                          );
+                        }).toList(),
+                        hint: Text(selectedGender,style: new TextStyle(color: Color(0xffaa9900)),),
+                        onChanged: (newVal) {
+                          selectedGender = newVal;
+                          this.setState(() {});
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                  child: CupertinoButton(
+                    padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                    child: Text("Register",style: TextStyle(color: Color(0xffAA9900)),),
+                    onPressed: _submit,
+                    color: Color(0xffF5E44A),
+                    pressedOpacity: 0.5,
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         )
       )
     );
