@@ -5,6 +5,7 @@ import 'select_work.dart';
 import 'loginpage.dart';
 import 'profilepage.dart';
 import 'nominee_list.dart';
+import 'gallery.dart';
 
 void main() => runApp(MyApp());
 
@@ -109,7 +110,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   child: FlatButton(
-                    onPressed:() {},
+                    onPressed:() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>new GalleryClass()
+                        ));
+                    },
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.photo_library, color: Color(0xffD9D24B), size: 22.0,),
