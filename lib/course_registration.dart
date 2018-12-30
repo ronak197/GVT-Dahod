@@ -12,7 +12,7 @@ class _WorkerRegistrationPageState extends State<WorkerRegistrationPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Gramin Vikas Trust",
+          "Course Registration",
           style: TextStyle(
             color: Color(0xFFAA9900)
           )
@@ -124,7 +124,7 @@ class _WorkerRegistrationPageState extends State<WorkerRegistrationPage> {
                   onPressed: (){},
                   elevation: 0.0,
                   child: Text(
-                    "Next",
+                    "Register",
                     style: TextStyle(
                       color: Color(0xFFAA9900),
                       fontSize: 15.0

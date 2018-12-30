@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPageHome> {
             child: Column(
               children: <Widget>[
                 Container(
-                    padding: EdgeInsets.only(top: 150.0,bottom: 50.0, left: 20.0, right: 20.0),
+                    padding: EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
                     child: Text("Gramin Vikas Trust", style: TextStyle(color: Colors.white, fontSize: 50.0), textAlign: TextAlign.center,)
                 ),
                 Container(
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPageHome> {
                     ),
                   ),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(left: 50.0, right: 50.0, bottom: 8.0),
+                  padding: EdgeInsets.only(left: 50.0, right: 50.0, bottom: 8.0, top: 100.0),
                 ),
                 Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
