@@ -9,6 +9,13 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color(0xffF8ED85),
         title: Text("Profile", style: TextStyle(color: Color(0xffAA9900)),),
         elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Color(0xffaa9900),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(

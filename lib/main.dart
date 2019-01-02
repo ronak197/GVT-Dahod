@@ -7,6 +7,7 @@ import 'package:gvtdahod/loginpage_worker.dart';
 import 'package:gvtdahod/loginpage_company.dart';
 import 'package:gvtdahod/gallery.dart';
 import 'package:gvtdahod/company_registration.dart';
+import 'package:gvtdahod/profilepage.dart';
 
 void main() => runApp(MyApp());
   
@@ -61,20 +62,27 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: <Widget>[
               DrawerHeader(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
-                    new CircleAvatar(
-                      child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
-                      backgroundColor: Color(0xffF7F071),
-                      radius: 30.0,
-                    ),
-                    new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
-                    new Text("Contracter", style: TextStyle(color: Colors.black87),),
-                    new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
-                    new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ProfilePage())
+                    );
+                  },
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
+                      new CircleAvatar(
+                        child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
+                        backgroundColor: Color(0xffF7F071),
+                        radius: 30.0,
+                      ),
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
+                      new Text("Contracter", style: TextStyle(color: Colors.black87),),
+                      new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
+                      new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -103,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.person_pin, color: Color(0xffD9D24B), size: 22.0,),
+                      Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text("Login for Candidate"),
