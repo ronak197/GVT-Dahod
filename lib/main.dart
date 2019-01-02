@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:gvtdahod/course_registration.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: LoginPageWorkerHome(),
       theme: ThemeData(
         primarySwatch: Colors.yellow
       ),
@@ -175,20 +176,37 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              Divider(),
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    FirebaseAuth.instance.signOut();
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.exit_to_app, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Sign Out"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         ),
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xffFFFDBB),
-//          decoration: BoxDecoration(
-////            image: DecorationImage(
-////              image: AssetImage("assets/bgimage.png"),
-////              alignment: Alignment.topCenter,
-////              repeat: ImageRepeat.repeatY
-////            ),
-//          ),
+//          color: Color(0xffFFFDBB),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/bgimage.png"),
+              alignment: Alignment.topCenter,
+              repeat: ImageRepeat.repeatY
+            ),
+          ),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
