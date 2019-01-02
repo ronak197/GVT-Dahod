@@ -6,6 +6,7 @@ import 'package:gvtdahod/course_registration.dart';
 import 'package:gvtdahod/loginpage_worker.dart';
 import 'package:gvtdahod/loginpage_company.dart';
 import 'package:gvtdahod/gallery.dart';
+import 'package:gvtdahod/company_registration.dart';
 
 void main() => runApp(MyApp());
   
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPageWorkerHome(),
+      home: HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.yellow
       ),
@@ -124,6 +125,24 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text("Register for the course"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new CompanyRegistrationPage()
+                    ));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.receipt, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Register your company"),
                       ),
                     ],
                   ),
@@ -262,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                   TextSpan(text: "Let's make our life successful, are you financially unemployed? Yes .. So let's go" ,
                     style: TextStyle(
                       fontSize: 18.0,
-                      color: Colors.black87,
+                      color: Colors.black54,
                       height: 1.25
                     ),
                   ),

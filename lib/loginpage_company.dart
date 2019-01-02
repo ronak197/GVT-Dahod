@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gvtdahod/company_registration.dart';
 
 class LoginPageCompanyHome extends StatefulWidget {
   @override
@@ -68,6 +69,19 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
                     color: Color(0xffF5E44A),
                     pressedOpacity: 0.5,
                     borderRadius: BorderRadius.circular(40.0),
+                  ),
+                ),
+                Container(
+                  child: InkWell(
+                    child: Text("Not a member? Register here", style: TextStyle(color: Colors.white),),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CompanyRegistrationPage()
+                          ),
+                      );
+                    },
                   ),
                 ),
               ],
