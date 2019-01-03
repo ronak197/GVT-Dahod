@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class GalleryPage extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -50,7 +49,7 @@ class GalleryPage extends StatelessWidget {
                 Hero(
                   child: FractionallySizedBox(
                     child: Container(
-                      child: Text("Construction", style: TextStyle(color: Colors.white, fontSize: 19.0),),
+                      child: Text("Plumber", style: TextStyle(color: Colors.white, fontSize: 19.0),),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
@@ -65,7 +64,7 @@ class GalleryPage extends StatelessWidget {
                     ),
                     widthFactor: 0.48,
                   ),
-                  tag: 'construction',
+                  tag: 'plumber',
                 ),
               ],
             ),

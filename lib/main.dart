@@ -8,6 +8,7 @@ import 'package:gvtdahod/loginpage_company.dart';
 import 'package:gvtdahod/gallery.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/profilepage.dart';
+import 'package:gvtdahod/company_verification.dart';
 
 void main() => runApp(MyApp());
   
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                 child: FlatButton(
                   onPressed:() {
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => new GalleryPage()
+                      builder: (context) =>  GalleryPage()
                     ));
                   },
                   child: Row(
@@ -198,6 +199,24 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text("Contact Us"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>  CompanyVerification()
+                    ));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.verified_user, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Company Verification"),
                       ),
                     ],
                   ),
