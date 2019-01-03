@@ -41,6 +41,13 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
 
     final PhoneVerificationCompleted verifiedSuccess = (FirebaseUser user) {
       print("Verified");
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage()
+          ),
+              (Route<dynamic> route) => false
+      );
     };
 
     final PhoneVerificationFailed verifiedFailed = (AuthException exception){
