@@ -37,45 +37,39 @@ class CompanyDetails{
 
 class _NomineeListState extends State<NomineeList> {
 
-  List<WorkerDetails> workerList = [];
-  List<CompanyDetails> companyList;
+  List<WorkerDetails> workerList = new List<WorkerDetails>();
+  List<CompanyDetails> companyList = new List<CompanyDetails>();
 
-  Future<void> fetchWorkerList() async {
+  bool databaseChecked = false;
 
-    WorkerDetails details = new WorkerDetails();
-
-    List<WorkerDetails> workerList;
-
-    details.fullName = "Ronak Jain";
-    details.mobileNo = "98742332";
-    details.dateOfBirth = "adakfnanf";
-    details.caste = "st";
-    details.work = "plumber";
-    details.address = "adsdasda";
-    details.gender = "male";
+  Future<List> fetchWorkerList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("workers");
 
-//    collectionReference.getDocuments().then((dataSnapshots){
-//      print(dataSnapshots);
-//      for(int i=0; i< dataSnapshots.documents.length; i+=1){
-//        WorkerDetails workerDetails = new WorkerDetails();
-//        workerDetails.caste = dataSnapshots.documents[i].data['caste'];
-//        workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
-//        workerDetails.mobileNo = dataSnapshots.documents[i].data['mobile no.'];
-//        workerDetails.gender = dataSnapshots.documents[i].data['gender'];
-//        workerDetails.work = dataSnapshots.documents[i].data['work'];
-//        workerDetails.address = dataSnapshots.documents[i].data['address'];
-//        workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
-//        workerList.add(workerDetails);
-//      }
-//    });
-
-    workerList.insert(0,details);
-    print(workerList[0].gender);
+    if(databaseChecked != true){
+      await collectionReference.getDocuments().then((dataSnapshots) {
+        for (int i = 0; i < dataSnapshots.documents.length; i += 1) {
+          WorkerDetails workerDetails = new WorkerDetails();
+          workerDetails.caste = dataSnapshots.documents[i].data['caste'];
+          workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
+          workerDetails.mobileNo =
+          dataSnapshots.documents[i].data['mobile no.'];
+          workerDetails.gender = dataSnapshots.documents[i].data['gender'];
+          workerDetails.work = dataSnapshots.documents[i].data['work'];
+          workerDetails.address = dataSnapshots.documents[i].data['address'];
+          workerDetails.dateOfBirth =
+          dataSnapshots.documents[i].data['date of birth'];
+          workerList.add(workerDetails);
+        }
+      });
+      setState(() {
+        databaseChecked = true;
+      });
+    }
+    return workerList;
   }
 
-  Future<void> fetchCompaniesList() async {
+  Future<List<WorkerDetails>> fetchCompaniesList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("contracter");
 
@@ -99,6 +93,7 @@ class _NomineeListState extends State<NomineeList> {
       }
     });
 
+    return workerList;
   }
 
   @override
@@ -130,13 +125,13 @@ class _NomineeListState extends State<NomineeList> {
       body: Container(
         child: FutureBuilder(
             future: fetchWorkerList(),
-            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (!snapshot.hasData)
                 return new Container();
               return new ListView.builder(
                 itemCount: workerList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return NomineeContainer(workerDetails: workerList[0],);
+                  return NomineeContainer(workerDetails: workerList[index],);
                 },
               );
             }
@@ -156,7 +151,7 @@ class NomineeContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(workerDetails: workerDetails,isWorker: true,)));
       },
       child: Container(
         margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0, bottom: 5.0),
