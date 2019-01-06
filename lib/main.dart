@@ -8,8 +8,8 @@ import 'package:gvtdahod/loginpage_company.dart';
 import 'package:gvtdahod/gallery.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/profilepage.dart';
-import 'package:gvtdahod/company_verification.dart';
 import 'package:gvtdahod/candidateProfile.dart';
+import 'package:gvtdahod/nominee_list.dart';
 
 void main() => runApp(MyApp());
   
@@ -37,15 +37,14 @@ class _HomePageState extends State<HomePage> {
 
   CandidateProfile profile = new CandidateProfile();
 
-  String username = "Guest";
-  String usernameSignature = "Not Logged In";
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  void getProfile(){
-    
-  }
+  String username = CandidateProfile.drawerUsername;
+  String usernameSignature = CandidateProfile.drawerUsernameSign;
 
   @override
   void initState() {
+    print(FirebaseAuth.instance.signOut());
     carouselImages.add('assets/image1.png');
     carouselImages.add('assets/image2.png');
     carouselImages.add('assets/image3.png');
@@ -57,8 +56,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color(0xffFFFDBB),
@@ -80,23 +79,25 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(builder: (context) => ProfilePage())
                     );
                   },
-                  child: new Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
-                      new CircleAvatar(
+                      Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
+                      CircleAvatar(
                         child: Icon(Icons.person_outline, color: Colors.black87, size: 20.0,),
                         backgroundColor: Color(0xffF7F071),
                         radius: 30.0,
                       ),
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
-                      new Text(username, style: TextStyle(color: Colors.black87),),
-                      new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
-                      new Text(usernameSignature,style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                      Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
+                      Text(username, style: TextStyle(color: Colors.black87),),
+                      Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
+                      Text(usernameSignature,style: TextStyle(color: Colors.grey,fontSize: 11.0),),
                     ],
                   ),
                 ),
               ),
+
+              CandidateProfile.profileType == 'default' ?
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -114,7 +115,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ) : SizedBox(
+                height: 0.0,
+                width: 0.0,
               ),
+
+              CandidateProfile.profileType == 'default' ?
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -131,7 +137,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
               ),
+
+              CandidateProfile.profileType == 'default' ?
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -149,7 +160,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ) : SizedBox(
+                height: 0.0,
+                width: 0.0,
               ),
+
+              CandidateProfile.profileType == 'default' ?
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -167,7 +183,11 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
               ),
+
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -181,6 +201,21 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text("Gallery"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Container(
+                child: FlatButton(
+                  onPressed:() {},
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Contact Us"),
                       ),
                     ],
                   ),
@@ -201,39 +236,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Container(
-                child: FlatButton(
-                  onPressed:() {},
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
-                      Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Contact Us"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) =>  CompanyVerification()
-                    ));
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.verified_user, color: Color(0xffD9D24B), size: 22.0,),
-                      Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Company Verification"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Divider(),
+              CandidateProfile.profileType == 'company' || CandidateProfile.profileType == 'worker' ?
               Container(
                 child: FlatButton(
                   onPressed:() {
@@ -252,6 +256,9 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ) : SizedBox(
+                height: 0.0,
+                width: 0.0,
               ),
             ],
           ),
@@ -259,14 +266,7 @@ class _HomePageState extends State<HomePage> {
         ),
       body: SingleChildScrollView(
         child: Container(
-//          color: Color(0xffFFFDBB),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/bgimage.png"),
-              alignment: Alignment.topCenter,
-              repeat: ImageRepeat.repeatY
-            ),
-          ),
+          color: Color(0xffFFFDBB),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
@@ -377,7 +377,18 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if(CandidateProfile.profileType == 'worker'){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => NomineeList()));
+                          } else {
+                            _scaffoldKey.currentState.showSnackBar(
+                                SnackBar(
+                                  content: Text("You need to log in as candidate"),
+                                  duration: Duration(seconds: 3),
+                                ),
+                            );
+                          }
+                        },
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,
@@ -413,7 +424,18 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if(CandidateProfile.profileType == 'company'){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => NomineeList()));
+                          } else {
+                            _scaffoldKey.currentState.showSnackBar(
+                              SnackBar(
+                                content: Text("You need to log in as contracter"),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          }
+                        },
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,

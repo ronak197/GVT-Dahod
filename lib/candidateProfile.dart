@@ -1,6 +1,7 @@
 class CandidateProfile {
 
-  static bool worker = false;
+  static String profileType = 'default';
+
   static String candidateName;
   static String address;
   static String mobileNo;
@@ -9,7 +10,6 @@ class CandidateProfile {
   static String gender;
   static String caste;
 
-  static bool company = false;
   static String companyName;
   static String city;
   static String email;
@@ -25,29 +25,25 @@ class CandidateProfile {
   static int wofbarbinder;
 
 
-  static bool defaultUser = true;
+  static String drawerUsername = "Guest";
+  static String drawerUsernameSign = "Not Logged In";
 
   static void switchToDefault(){
-    worker = false;
-    company = false;
-    defaultUser = true;
+    profileType = 'default';
+    drawerUsername = "Guest";
+    drawerUsernameSign = "Not Logged In";
   }
 
   static void switchToWorker(){
-    worker = true;
-    company = false;
-    defaultUser = false;
+    profileType = 'worker';
+    drawerUsername = candidateName;
+    drawerUsernameSign = mobileNo;
   }
 
   static void switchToCompany(){
-    worker = false;
-    company = true;
-    defaultUser = false;
+    profileType = 'company';
+    drawerUsername = companyName;
+    drawerUsernameSign = city;
   }
 
-  static void getProfile(){
-    String getCompany(){
-      return companyName;
-    }
-  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/candidateProfile.dart';
+import 'package:gvtdahod/main.dart';
 
 class LoginPageCompanyHome extends StatefulWidget {
   @override
@@ -20,22 +21,38 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
 
     await documentReference.get().then((dataSnapshot){
       if(dataSnapshot.exists){
-        CandidateProfile.companyName = dataSnapshot.data['company name'];
-        CandidateProfile.city = dataSnapshot.data['city'];
-        CandidateProfile.email = dataSnapshot.data['email'];
-        CandidateProfile.contactNo = dataSnapshot.data['contact no'];
-        CandidateProfile.username = dataSnapshot.data['username'];
-        CandidateProfile.nofmason = dataSnapshot.data['nofmason'];
-        CandidateProfile.wofmason = dataSnapshot.data['wofmason'];
-        CandidateProfile.nofplumber = dataSnapshot.data['nofplumber'];
-        CandidateProfile.wofplumber = dataSnapshot.data['wofplumber'];
-        CandidateProfile.nofpainter = dataSnapshot.data['nofpainter'];
-        CandidateProfile.wofpainter = dataSnapshot.data['wofpainter'];
-        CandidateProfile.nofbarbinder = dataSnapshot.data['nofbarbinder'];
-        CandidateProfile.wofbarbinder = dataSnapshot.data['wofbarbinder'];
-        CandidateProfile.switchToCompany();
+        print(username);
+
+        if(password == dataSnapshot.data['password']) {
+
+          CandidateProfile.companyName = dataSnapshot.data['company name'];
+          CandidateProfile.city = dataSnapshot.data['city'];
+          CandidateProfile.email = dataSnapshot.data['email'];
+          CandidateProfile.contactNo = dataSnapshot.data['contact no'];
+          CandidateProfile.username = dataSnapshot.data['username'];
+          CandidateProfile.nofmason = dataSnapshot.data['nofmason'];
+          CandidateProfile.wofmason = dataSnapshot.data['wofmason'];
+          CandidateProfile.nofplumber = dataSnapshot.data['nofplumber'];
+          CandidateProfile.wofplumber = dataSnapshot.data['wofplumber'];
+          CandidateProfile.nofpainter = dataSnapshot.data['nofpainter'];
+          CandidateProfile.wofpainter = dataSnapshot.data['wofpainter'];
+          CandidateProfile.nofbarbinder = dataSnapshot.data['nofbarbinder'];
+          CandidateProfile.wofbarbinder = dataSnapshot.data['wofbarbinder'];
+          CandidateProfile.switchToCompany();
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+                  (Route<dynamic> route) => false
+          );
+        }else {
+          dialogAfterFailure("Wrong Password");
+        }
+
       } else {
-        dialogAfterFailure("You are not approved by ngo yet");
+        dialogAfterFailure("You are not approved by NGO yet");
       }
     });
   }
@@ -94,8 +111,8 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
                 ),
                 Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-                  child: TextFormField(
-                    onSaved: (val) {
+                  child: TextField(
+                    onChanged: (val) {
                       username = val;
                     },
                     style: TextStyle(color: Color(0xffEBE06B), fontSize: 18.0),
@@ -113,9 +130,9 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
                 ),
                 Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-                  child: TextFormField(
+                  child: TextField(
                     obscureText: true,
-                    onSaved: (val) {
+                    onChanged: (val) {
                       password = val;
                     },
                     style: TextStyle(color: Color(0xffEBE06B), fontSize: 18.0),

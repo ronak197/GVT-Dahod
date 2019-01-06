@@ -37,7 +37,6 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
 
     DocumentReference documentReference = Firestore.instance.document("workers/$mobileNo");
 
-
     await documentReference.get().then((dataSnapshot){
       if(dataSnapshot.exists){
         CandidateProfile.candidateName = dataSnapshot.data['full name'];
@@ -47,7 +46,7 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
         CandidateProfile.gender = dataSnapshot.data['gender'];
         CandidateProfile.work = dataSnapshot.data['work'];
         CandidateProfile.caste = dataSnapshot.data['caste'];
-        CandidateProfile.worker = true;
+        CandidateProfile.switchToWorker();
         print(CandidateProfile.candidateName);
         setState(() {
           profileExists = true;
