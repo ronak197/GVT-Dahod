@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gvtdahod/main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gvtdahod/candidateProfile.dart';
 
 class LoginPageWorkerHome extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
   String smsCode;
   String verificationId;
 
+  bool profileExists = false;
+
   signIn(){
     FirebaseAuth.instance.signInWithPhoneNumber(
       smsCode: this.smsCode,
@@ -23,7 +27,7 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
     ).then((user){
       print(user);
     }).catchError((e){
-      print(e);
+      dialogAfterFailure(e);
     });
   }
 
@@ -31,39 +35,102 @@ class _LoginPageState extends State<LoginPageWorkerHome> {
 
     print(mobileNo);
 
-    final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId){
-      this.verificationId = verId;
-    };
+    DocumentReference documentReference = Firestore.instance.document("workers/$mobileNo");
 
-    final PhoneCodeSent smsCodeSent = (String verId, [int forceCodeResend]){
-      this.verificationId = verId;
-    };
 
-    final PhoneVerificationCompleted verifiedSuccess = (FirebaseUser user) {
-      print("Verified");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomePage()
-          ),
-              (Route<dynamic> route) => false
-      );
-    };
+    await documentReference.get().then((dataSnapshot){
+      if(dataSnapshot.exists){
+        CandidateProfile.candidateName = dataSnapshot.data['full name'];
+        CandidateProfile.mobileNo = dataSnapshot.data['mobile no.'];
+        CandidateProfile.dateOfBirth = dataSnapshot.data['date of birth'];
+        CandidateProfile.address = dataSnapshot.data['address'];
+        CandidateProfile.gender = dataSnapshot.data['gender'];
+        CandidateProfile.work = dataSnapshot.data['work'];
+        CandidateProfile.caste = dataSnapshot.data['caste'];
+        CandidateProfile.worker = true;
+        print(CandidateProfile.candidateName);
+        setState(() {
+          profileExists = true;
+        });
+      }
+    });
 
-    final PhoneVerificationFailed verifiedFailed = (AuthException exception){
-      print("${exception.message}");
-    };
+      if (profileExists) {
+        print("Profile exits");
 
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: this.mobileNo,
-      codeAutoRetrievalTimeout: autoRetrieve,
-      codeSent: smsCodeSent,
-      timeout: const Duration(seconds: 5),
-      verificationCompleted: verifiedSuccess,
-      verificationFailed: verifiedFailed,
-    );
+        final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId) {
+          this.verificationId = verId;
+        };
+
+        final PhoneCodeSent smsCodeSent = (String verId,
+            [int forceCodeResend]) {
+          this.verificationId = verId;
+        };
+
+        final PhoneVerificationCompleted verifiedSuccess = (FirebaseUser user) {
+          print("Verified");
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+                  (Route<dynamic> route) => false
+          );
+        };
+
+        final PhoneVerificationFailed verifiedFailed = (
+            AuthException exception) {
+          dialogAfterFailure("${exception.message}");
+        };
+
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: this.mobileNo,
+          codeAutoRetrievalTimeout: autoRetrieve,
+          codeSent: smsCodeSent,
+          timeout: const Duration(seconds: 5),
+          verificationCompleted: verifiedSuccess,
+          verificationFailed: verifiedFailed,
+        );
+      } else {
+        dialogAfterFailure("You are not registered");
+      }
+
+
   }
 
+
+  Future<Null> dialogAfterFailure(String msg) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return SimpleDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))
+            ),
+            title: Text(
+              msg,
+              style: TextStyle(
+                  fontFamily: "OpenSans",
+                  color: Color(0xFFAA9900)
+              ),
+            ),
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SimpleDialogOption(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("Okay")
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

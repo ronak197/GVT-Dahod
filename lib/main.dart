@@ -9,6 +9,7 @@ import 'package:gvtdahod/gallery.dart';
 import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/company_verification.dart';
+import 'package:gvtdahod/candidateProfile.dart';
 
 void main() => runApp(MyApp());
   
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,6 +34,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   List<String> carouselImages = new List();
+
+  CandidateProfile profile = new CandidateProfile();
+
+  String username = "Guest";
+  String usernameSignature = "Not Logged In";
+
+  void getProfile(){
+    
+  }
 
   @override
   void initState() {
@@ -47,6 +57,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -74,14 +85,14 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       new Padding(padding: EdgeInsetsDirectional.only(top: 10.0)),
                       new CircleAvatar(
-                        child: new Text("C",style: TextStyle(color: Colors.black87,fontSize: 20.0),),
+                        child: Icon(Icons.person_outline, color: Colors.black87, size: 20.0,),
                         backgroundColor: Color(0xffF7F071),
                         radius: 30.0,
                       ),
                       new Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
-                      new Text("Contracter", style: TextStyle(color: Colors.black87),),
+                      new Text(username, style: TextStyle(color: Colors.black87),),
                       new Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
-                      new Text("abcd@gmail.com",style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                      new Text(usernameSignature,style: TextStyle(color: Colors.grey,fontSize: 11.0),),
                     ],
                   ),
                 ),
@@ -98,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Sign In for Contracter"),
+                        child: Text("Log In for Contracter"),
                       ),
                     ],
                   ),
@@ -115,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.account_circle, color: Color(0xffD9D24B), size: 22.0,),
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Login for Candidate"),
+                        child: Text("Log In for Candidate"),
                       ),
                     ],
                   ),
@@ -227,6 +238,9 @@ class _HomePageState extends State<HomePage> {
                 child: FlatButton(
                   onPressed:() {
                     FirebaseAuth.instance.signOut();
+                    setState(() {
+                      CandidateProfile.switchToDefault();
+                    });
                   },
                   child: Row(
                     children: <Widget>[

@@ -62,7 +62,7 @@ class _CompanyRegistrationPageState extends State<CompanyRegistrationPage> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0))
             ),
             title: Text(
-              "Successfully Registered.",
+              "Successfully Registered. You can login into your account once we verify you.",
               style: TextStyle(
                   fontFamily: "OpenSans",
                   color: Color(0xFFaa9900)
