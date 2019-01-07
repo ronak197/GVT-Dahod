@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'nominee_list.dart';
+import 'package:gvtdahod/nominee_list.dart';
+import 'package:gvtdahod/candidateProfile.dart';
 
 class ProfilePage extends StatelessWidget {
 
   WorkerDetails workerDetails = new WorkerDetails();
   CompanyDetails companyDetails = new CompanyDetails();
-  bool isWorker;
 
-  ProfilePage({this.workerDetails,this.companyDetails, this.isWorker});
+  ProfilePage({this.workerDetails,this.companyDetails});
 
   @override
   Widget build(BuildContext context) {
+
+    print(CandidateProfile.profileType);
+    print(companyDetails.companyName);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -55,12 +59,21 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      CandidateProfile.profileType == 'company' ?
                       Container(
                         child: Text(workerDetails.fullName, style: TextStyle(fontSize: 20.0, color: Colors.black54),),
+                      ) :
+                      Container(
+                        child: Text(companyDetails.companyName, style: TextStyle(fontSize: 20.0, color: Colors.black54),),
                       ),
+                      CandidateProfile.profileType == 'company' ?
                       Container(
                         padding: EdgeInsets.only(top:5.0),
                         child: Text(workerDetails.work, style: TextStyle(color: Colors.black45), textAlign: TextAlign.left,),
+                      ) :
+                      Container(
+                        padding: EdgeInsets.only(top:5.0),
+                        child: Text(companyDetails.city, style: TextStyle(color: Colors.black45), textAlign: TextAlign.left,),
                       ),
                     ],
                   ),
@@ -74,7 +87,7 @@ class ProfilePage extends StatelessWidget {
               color: Colors.white,
             ),
             child:
-            isWorker == true?
+            CandidateProfile.profileType == 'company'?
             Column(
               children: <Widget>[
                 ListTile(

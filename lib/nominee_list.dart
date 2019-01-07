@@ -40,43 +40,37 @@ class _NomineeListState extends State<NomineeList> {
   List<WorkerDetails> workerList = new List<WorkerDetails>();
   List<CompanyDetails> companyList = new List<CompanyDetails>();
 
-  bool databaseChecked = false;
-
   Future<List> fetchWorkerList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("workers");
 
-    if(databaseChecked != true){
       await collectionReference.getDocuments().then((dataSnapshots) {
         for (int i = 0; i < dataSnapshots.documents.length; i += 1) {
           WorkerDetails workerDetails = new WorkerDetails();
           workerDetails.caste = dataSnapshots.documents[i].data['caste'];
           workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
-          workerDetails.mobileNo =
-          dataSnapshots.documents[i].data['mobile no.'];
+          workerDetails.mobileNo = dataSnapshots.documents[i].data['mobile no.'];
           workerDetails.gender = dataSnapshots.documents[i].data['gender'];
           workerDetails.work = dataSnapshots.documents[i].data['work'];
           workerDetails.address = dataSnapshots.documents[i].data['address'];
-          workerDetails.dateOfBirth =
-          dataSnapshots.documents[i].data['date of birth'];
-          workerList.add(workerDetails);
+          workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
+          setState(() {
+            workerList.add(workerDetails);
+          });
         }
       });
-      setState(() {
-        databaseChecked = true;
-      });
-    }
-    return workerList;
+
+      return workerList;
   }
 
-  Future<List<WorkerDetails>> fetchCompaniesList() async {
+  Future<List> fetchCompaniesList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("contracter");
 
     await collectionReference.getDocuments().then((dataSnapshots){
       for(int i=0; i<= dataSnapshots.documents.length; i+=1){
-        CompanyDetails companyDetails;
-        companyDetails.companyName = dataSnapshots.documents[i].data['company name'];
+        CompanyDetails companyDetails = new CompanyDetails();
+        companyDetails.companyName = dataSnapshots.documents[i].data['name'];
         companyDetails.city = dataSnapshots.documents[i].data['city'];
         companyDetails.email = dataSnapshots.documents[i].data['email'];
         companyDetails.contactNo = dataSnapshots.documents[i].data['contact no'];
@@ -88,20 +82,23 @@ class _NomineeListState extends State<NomineeList> {
         companyDetails.wofmason = dataSnapshots.documents[i].data['wofmason'];
         companyDetails.wofbarbinder = dataSnapshots.documents[i].data['wofbarbinder'];
         companyDetails.wofplumber = dataSnapshots.documents[i].data['wofplumber'];
-
-        companyList.add(companyDetails);
+        setState(() {
+          companyList.add(companyDetails);
+        });
       }
     });
 
-    return workerList;
+    return companyList;
   }
 
   @override
   void initState() {
     if(CandidateProfile.profileType == 'worker'){
-      fetchWorkerList();
-    } else if(CandidateProfile.profileType == 'company'){
+      companyList = [];
       fetchCompaniesList();
+    } else if(CandidateProfile.profileType == 'company'){
+      workerList = [];
+      fetchWorkerList();
     }
     super.initState();
   }
@@ -119,23 +116,26 @@ class _NomineeListState extends State<NomineeList> {
         ),
         elevation: 0.0,
         centerTitle: true,
-        title: Text("Workers List", style: TextStyle(color: Color(0xffAA9900)),),
+        title:
+        CandidateProfile.profileType == 'company' ?
+          Text("Workers List", style: TextStyle(color: Color(0xffAA9900)),) :
+        Text("Company List", style: TextStyle(color: Color(0xffAA9900)),),
         backgroundColor: Colors.white,
       ),
       body: Container(
-        child: FutureBuilder(
-            future: fetchWorkerList(),
-            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-              if (!snapshot.hasData)
-                return new Container();
-              return new ListView.builder(
-                itemCount: workerList.length,
+        child: ListView.builder(
+                itemCount: CandidateProfile.profileType == 'company' ? workerList.length : companyList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return NomineeContainer(workerDetails: workerList[index],);
+                 if(CandidateProfile.profileType == 'company') {
+                   print("gone");
+                   return NomineeContainer(workerDetails: workerList[index],);
+                 }
+                 else {
+                   print("entered");
+                   return NomineeContainer(companyDetails: companyList[index],);
+                 }
                 },
-              );
-            }
-        ),
+              )
       ),
     );
   }
@@ -143,15 +143,18 @@ class _NomineeListState extends State<NomineeList> {
 
 class NomineeContainer extends StatelessWidget {
 
-  final WorkerDetails workerDetails;
+  WorkerDetails workerDetails;
+  CompanyDetails companyDetails = new CompanyDetails();
 
-  NomineeContainer({this.workerDetails});
+  NomineeContainer({this.workerDetails,this.companyDetails});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(workerDetails: workerDetails,isWorker: true,)));
+        CandidateProfile.profileType == 'worker' ?
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(companyDetails: companyDetails,))) :
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(workerDetails: workerDetails,)));
       },
       child: Container(
         margin: EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0, bottom: 5.0),
@@ -177,12 +180,21 @@ class NomineeContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  CandidateProfile.profileType == 'worker' ?
+                  Container(
+                    child: Text(companyDetails.companyName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                  ) :
                   Container(
                     child: Text(workerDetails.fullName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
                   ),
+                  CandidateProfile.profileType == 'company' ?
                   Container(
                     padding: EdgeInsets.only(top:5.0),
                     child: Text(workerDetails.mobileNo, style: TextStyle(color: Colors.black45), textAlign: TextAlign.left,),
+                  ) :
+                  Container(
+                    padding: EdgeInsets.only(top:5.0),
+                    child: Text(companyDetails.city, style: TextStyle(color: Colors.black45), textAlign: TextAlign.left,),
                   ),
                 ],
               ),

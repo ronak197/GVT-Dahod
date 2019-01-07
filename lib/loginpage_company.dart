@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
 
         if(password == dataSnapshot.data['password']) {
 
-          CandidateProfile.companyName = dataSnapshot.data['company name'];
+          CandidateProfile.companyName = dataSnapshot.data['name'];
           CandidateProfile.city = dataSnapshot.data['city'];
           CandidateProfile.email = dataSnapshot.data['email'];
           CandidateProfile.contactNo = dataSnapshot.data['contact no'];
@@ -38,8 +38,7 @@ class _LoginPageState extends State<LoginPageCompanyHome> {
           CandidateProfile.wofpainter = dataSnapshot.data['wofpainter'];
           CandidateProfile.nofbarbinder = dataSnapshot.data['nofbarbinder'];
           CandidateProfile.wofbarbinder = dataSnapshot.data['wofbarbinder'];
-          CandidateProfile.switchToCompany();
-
+           CandidateProfile.switchToCompany();
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

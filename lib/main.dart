@@ -35,12 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   List<String> carouselImages = new List();
 
-  CandidateProfile profile = new CandidateProfile();
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  String username = CandidateProfile.drawerUsername;
-  String usernameSignature = CandidateProfile.drawerUsernameSign;
 
   @override
   void initState() {
@@ -89,9 +84,9 @@ class _HomePageState extends State<HomePage> {
                         radius: 30.0,
                       ),
                       Padding(padding: EdgeInsetsDirectional.only(top: 15.0)),
-                      Text(username, style: TextStyle(color: Colors.black87),),
+                      Text(CandidateProfile.drawerUsername, style: TextStyle(color: Colors.black87),),
                       Padding(padding: EdgeInsetsDirectional.only(top: 5.0)),
-                      Text(usernameSignature,style: TextStyle(color: Colors.grey,fontSize: 11.0),),
+                      Text(CandidateProfile.drawerUsernameSign,style: TextStyle(color: Colors.grey,fontSize: 11.0),),
                     ],
                   ),
                 ),
