@@ -10,6 +10,7 @@ import 'package:gvtdahod/company_registration.dart';
 import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/candidateProfile.dart';
 import 'package:gvtdahod/nominee_list.dart';
+import 'package:gvtdahod/selfProfilePage.dart';
 
 void main() => runApp(MyApp());
   
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ProfilePage())
+                      MaterialPageRoute(builder: (context) => SelfProfilePage())
                     );
                   },
                   child: Column(

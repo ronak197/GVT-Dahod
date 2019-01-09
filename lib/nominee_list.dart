@@ -68,7 +68,7 @@ class _NomineeListState extends State<NomineeList> {
     CollectionReference collectionReference = Firestore.instance.collection("contracter");
 
     await collectionReference.getDocuments().then((dataSnapshots){
-      for(int i=0; i<= dataSnapshots.documents.length; i+=1){
+      for(int i=0; i< dataSnapshots.documents.length; i+=1){
         CompanyDetails companyDetails = new CompanyDetails();
         companyDetails.companyName = dataSnapshots.documents[i].data['name'];
         companyDetails.city = dataSnapshots.documents[i].data['city'];
@@ -143,7 +143,7 @@ class _NomineeListState extends State<NomineeList> {
 
 class NomineeContainer extends StatelessWidget {
 
-  WorkerDetails workerDetails;
+  WorkerDetails workerDetails = new WorkerDetails();
   CompanyDetails companyDetails = new CompanyDetails();
 
   NomineeContainer({this.workerDetails,this.companyDetails});
