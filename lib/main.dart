@@ -11,6 +11,9 @@ import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/candidateProfile.dart';
 import 'package:gvtdahod/nominee_list.dart';
 import 'package:gvtdahod/selfProfilePage.dart';
+import 'package:gvtdahod/developers.dart';
+import 'package:gvtdahod/info_page.dart';
+import 'package:gvtdahod/contactuspage.dart';
 
 void main() => runApp(MyApp());
   
@@ -56,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Color(0xffFFFDBB),
+        backgroundColor: Color(0xfffffdcc),
         iconTheme: IconThemeData(
           color: Color(0xffada505),
         ),
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         child: Container(
-          color: Color(0xffFAF8D1),
+          color: Color(0xfffffdcc),
           child: ListView(
             children: <Widget>[
               DrawerHeader(
@@ -93,6 +96,24 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              Container(
+                child: FlatButton(
+                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.info, color: Color(0xffD9D24B),size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Get Information"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
               CandidateProfile.profileType == 'default' ?
               Container(
                 child: FlatButton(
@@ -205,7 +226,9 @@ class _HomePageState extends State<HomePage> {
 
               Container(
                 child: FlatButton(
-                  onPressed:() {},
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage()));
+                  },
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.phone, color: Color(0xffD9D24B), size: 22.0,),
@@ -217,22 +240,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              Divider(),
               Container(
                 child: FlatButton(
                   materialTapTargetSize: MaterialTapTargetSize.padded,
-                  onPressed:() {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DevelopersPage()));
+                  },
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.info, color: Color(0xffD9D24B),size: 22.0,),
+                      Icon(Icons.people, color: Color(0xffD9D24B),size: 22.0,),
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
-                        child: Text("About Us"),
+                        child: Text("Developed By"),
                       ),
                     ],
                   ),
                 ),
               ),
-              Divider(),
               CandidateProfile.profileType == 'company' || CandidateProfile.profileType == 'worker' ?
               Container(
                 child: FlatButton(
@@ -262,7 +287,7 @@ class _HomePageState extends State<HomePage> {
         ),
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xffFFFDBB),
+          color: Color(0xffFFFdcc),
           padding: EdgeInsets.only(bottom: 20.0),
           child: Column(
             children: <Widget>[
@@ -337,7 +362,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage()));
+                        },
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,
@@ -467,7 +494,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       alignment: Alignment.topCenter,
                       child: RawMaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage()));
+                        },
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(10.0),
                         highlightColor: Colors.white,

@@ -69,6 +69,7 @@ class GalleryPageState extends State<GalleryPage> {
     runGallery();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
