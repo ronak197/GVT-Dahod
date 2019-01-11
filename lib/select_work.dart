@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:gvtdahod/nominee_list.dart';
+import 'package:gvtdahod/selected_workers.dart';
 
-class SelectWork extends StatelessWidget {
+class SelectWorkPage extends StatefulWidget {
+
+  bool selectedWorkerPage = false;
+
+  SelectWorkPage({this.selectedWorkerPage});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SelectWorkHome(),
-    );
-  }
+  _SelectWorkPageState createState() => _SelectWorkPageState();
 }
 
+class _SelectWorkPageState extends State<SelectWorkPage> {
 
-class SelectWorkHome extends StatefulWidget {
-  @override
-  _SelectWorkHomeState createState() => _SelectWorkHomeState();
-}
+  bool selectedWorkerPage;
 
-class _SelectWorkHomeState extends State<SelectWorkHome> {
+  _SelectWorkPageState({this.selectedWorkerPage});
 
   List<Color> colorList = [Colors.blue,Colors.yellow];
   @override
@@ -27,6 +27,13 @@ class _SelectWorkHomeState extends State<SelectWorkHome> {
         elevation: 0.0,
         title: Text("Select Work", style: TextStyle(color: Color(0xffAA9900)),),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Color(0xffaa9900),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: ListView(
         children: <Widget>[
@@ -37,7 +44,18 @@ class _SelectWorkHomeState extends State<SelectWorkHome> {
             ),
             height: 120.0,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                if(selectedWorkerPage == false) {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          NomineeList(typeOfWorker: 'plumber',)));
+                }
+                else {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          SelectedWorkers(typeOfWorker: 'plumber',)));
+                }
+              },
               splashColor: Colors.yellow.withOpacity(0.5),
               padding: EdgeInsets.all(0.0),
               color: Color(0x00ffffff),
@@ -55,7 +73,17 @@ class _SelectWorkHomeState extends State<SelectWorkHome> {
             ),
             height: 120.0,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {if(selectedWorkerPage == false) {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        NomineeList(typeOfWorker: 'painter',)));
+              }
+              else {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        SelectedWorkers(typeOfWorker: 'painter',)));
+              }
+              },
               splashColor: Colors.yellow.withOpacity(0.5),
               padding: EdgeInsets.all(0.0),
               color: Color(0x00ffffff),
@@ -73,7 +101,16 @@ class _SelectWorkHomeState extends State<SelectWorkHome> {
             ),
             height: 120.0,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {if(selectedWorkerPage == false) {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        NomineeList(typeOfWorker: 'mason',)));
+              }
+              else {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        SelectedWorkers(typeOfWorker: 'mason',)));
+              }},
               splashColor: Colors.yellow.withOpacity(0.5),
               padding: EdgeInsets.all(0.0),
               color: Color(0x00ffffff),
@@ -91,7 +128,16 @@ class _SelectWorkHomeState extends State<SelectWorkHome> {
             ),
             height: 120.0,
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () {if(selectedWorkerPage == false) {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        NomineeList(typeOfWorker: 'barbinder',)));
+              }
+              else {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>
+                        SelectedWorkers(typeOfWorker: 'barbinder',)));
+              }},
               splashColor: Colors.yellow.withOpacity(0.5),
               padding: EdgeInsets.all(0.0),
               color: Color(0x00ffffff),

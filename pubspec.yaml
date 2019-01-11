@@ -58,6 +58,7 @@ flutter:
     - assets/workerIcon.png
     - assets/painter_white.png
     - assets/pliers_white.png
+    - assets/pliers_box.png
     - assets/plumber_white.png
     - assets/plumber_box.png
     - assets/painter_box.png
@@ -74,6 +75,10 @@ flutter:
     - assets/plumber_yellow.png
     - assets/sampleimage.jpg
     - assets/gvticon.png
+    - assets/jaimin_developer.jpg
+    - assets/ronak_developer.jpg
+    - assets/sanket_developer.jpg
+    - assets/dhruvam_developer.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

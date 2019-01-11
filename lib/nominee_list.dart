@@ -2,40 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:gvtdahod/profilepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gvtdahod/candidateProfile.dart';
+import 'package:gvtdahod/worker_company_details.dart';
 
 class NomineeList extends StatefulWidget {
+
+  String typeOfWorker;
+
+  NomineeList({this.typeOfWorker});
+
   @override
-  _NomineeListState createState() => _NomineeListState();
-}
-
-class WorkerDetails {
-  String fullName;
-  String dateOfBirth;
-  String address;
-  String mobileNo;
-  String gender;
-  String work;
-  String caste;
-}
-
-class CompanyDetails{
-
-  String companyName;
-  String city;
-  String email;
-  String contactNo;
-  int nofbarbinder;
-  int nofmason;
-  int wofmason;
-  int nofpainter;
-  int wofpainter;
-  int nofplumber;
-  int wofplumber;
-  int wofbarbinder;
-
+  _NomineeListState createState() => _NomineeListState(typeOfWorker: typeOfWorker);
 }
 
 class _NomineeListState extends State<NomineeList> {
+
+  String typeOfWorker;
+
+  _NomineeListState({this.typeOfWorker});
 
   List<WorkerDetails> workerList = new List<WorkerDetails>();
   List<CompanyDetails> companyList = new List<CompanyDetails>();
@@ -45,18 +28,20 @@ class _NomineeListState extends State<NomineeList> {
     CollectionReference collectionReference = Firestore.instance.collection("workers");
 
       await collectionReference.getDocuments().then((dataSnapshots) {
-        for (int i = 0; i < dataSnapshots.documents.length; i += 1) {
-          WorkerDetails workerDetails = new WorkerDetails();
-          workerDetails.caste = dataSnapshots.documents[i].data['caste'];
-          workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
-          workerDetails.mobileNo = dataSnapshots.documents[i].data['mobile no.'];
-          workerDetails.gender = dataSnapshots.documents[i].data['gender'];
-          workerDetails.work = dataSnapshots.documents[i].data['work'];
-          workerDetails.address = dataSnapshots.documents[i].data['address'];
-          workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
-          setState(() {
-            workerList.add(workerDetails);
-          });
+        for (int i = 0; i < dataSnapshots.documents.length ; i += 1) {
+          if(dataSnapshots.documents[i].data['work'] == typeOfWorker) {
+            WorkerDetails workerDetails = new WorkerDetails();
+            workerDetails.caste = dataSnapshots.documents[i].data['caste'];
+            workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
+            workerDetails.mobileNo = dataSnapshots.documents[i].data['mobile no.'];
+            workerDetails.gender = dataSnapshots.documents[i].data['gender'];
+            workerDetails.work = dataSnapshots.documents[i].data['work'];
+            workerDetails.address = dataSnapshots.documents[i].data['address'];
+            workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
+            setState(() {
+              workerList.add(workerDetails);
+            });
+          }
         }
       });
 
@@ -116,8 +101,7 @@ class _NomineeListState extends State<NomineeList> {
         ),
         elevation: 0.0,
         centerTitle: true,
-        title:
-        CandidateProfile.profileType == 'company' ?
+        title: CandidateProfile.profileType == 'company' ?
           Text("Workers List", style: TextStyle(color: Color(0xffAA9900)),) :
         Text("Company List", style: TextStyle(color: Color(0xffAA9900)),),
         backgroundColor: Colors.white,

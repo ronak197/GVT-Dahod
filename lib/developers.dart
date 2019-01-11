@@ -26,11 +26,11 @@ class _DevelopersPageState extends State<DevelopersPage> {
         margin: EdgeInsets.all(10.0),
         child: ListView(
           children: <Widget>[
-            developerContainer("assets/sampleimage.jpg", "Dhruvam Panchal"),
-            developerContainer("assets/sampleimage.jpg", "Hastin Modi"),
-            developerContainer("assets/sampleimage.jpg", "Jaimin Vaghela"),
-            developerContainer("assets/sampleimage.jpg", "Ronak Jain"),
-            developerContainer("assets/sampleimage.jpg", "Sanket Chaudhari"),
+            developerContainer("assets/dhruvam_developer.jpg", "Dhruvam Panchal", "dhruvampanchal@gmail.com", "+91 9099040307"),
+            developerContainer("assets/sampleimage.jpg", "Hastin Modi", "hastinmodi@yahoo.in", "+91 9427809085"),
+            developerContainer("assets/jaimin_developer.jpg", "Jaimin Vaghela", "jaimin2320@gmail.com", "+91 756771958"),
+            developerContainer("assets/ronak_developer.jpg", "Ronak Jain", "jain.ronak197@gmail.com", "+91 9879593420"),
+            developerContainer("assets/sanket_developer.jpg", "Sanket Chaudhari", "sanket143@zoho.com", "+91 7359814667"),
           ],
         ),
       ),
@@ -38,25 +38,48 @@ class _DevelopersPageState extends State<DevelopersPage> {
   }
 }
 
-Widget developerContainer(String imageLocation, String developerName) {
+Widget developerContainer(String imageLocation, String developerName, String emailId, String contactNo) {
   return Container(
      child: Row(
        children: <Widget>[
          Container(
-           margin: EdgeInsets.only(left: 10.0, top: 10.0),
-           height: 100.0,
-           width: 100.0,
+           margin: EdgeInsets.only(left: 10.0, top: 12.0),
+           height: 80.0,
+           width: 80.0,
            decoration: BoxDecoration(
              shape: BoxShape.circle,
              image: DecorationImage(
                image: AssetImage(imageLocation),
-               fit: BoxFit.fill
+               fit: BoxFit.cover
              ),
            ),
          ),
          Container(
            padding: EdgeInsets.only(left: 20.0),
-           child: Text(developerName, style: TextStyle(fontSize: 18.0, fontStyle: FontStyle.italic),),
+           child: RichText(
+             text: TextSpan(
+               children: [
+                 TextSpan(
+                   text: "$developerName",
+                   style: TextStyle(color: Colors.black87, fontSize: 16.0)
+                 ),
+                 TextSpan(
+                   text: "\n$emailId",
+                   style: TextStyle(
+                     color: Colors.grey,
+                     fontSize: 14.0
+                   ),
+                 ),
+                 TextSpan(
+                   text: "\n$contactNo",
+                   style: TextStyle(
+                       color: Colors.grey,
+                       fontSize: 14.0
+                   ),
+                 ),
+               ],
+             ),
+           ),
          ),
        ],
      ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gvtdahod/nominee_list.dart';
 import 'package:gvtdahod/candidateProfile.dart';
+import 'package:gvtdahod/worker_company_details.dart';
 
 class ProfilePage extends StatelessWidget {
   WorkerDetails workerDetails = new WorkerDetails();

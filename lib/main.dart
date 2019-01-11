@@ -7,13 +7,16 @@ import 'package:gvtdahod/loginpage_worker.dart';
 import 'package:gvtdahod/loginpage_company.dart';
 import 'package:gvtdahod/gallery.dart';
 import 'package:gvtdahod/company_registration.dart';
-import 'package:gvtdahod/profilepage.dart';
 import 'package:gvtdahod/candidateProfile.dart';
 import 'package:gvtdahod/nominee_list.dart';
 import 'package:gvtdahod/selfProfilePage.dart';
 import 'package:gvtdahod/developers.dart';
 import 'package:gvtdahod/info_page.dart';
 import 'package:gvtdahod/contactuspage.dart';
+import 'package:gvtdahod/select_work.dart';
+import 'package:gvtdahod/recruitment_details.dart';
+import 'package:gvtdahod/notifications_company.dart';
+import 'package:gvtdahod/notifications_worker.dart';
 
 void main() => runApp(MyApp());
   
@@ -74,9 +77,12 @@ class _HomePageState extends State<HomePage> {
               DrawerHeader(
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SelfProfilePage())
-                    );
+                    if(CandidateProfile.profileType != 'default') {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SelfProfilePage())
+                      );
+                    }
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +100,95 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+              ),
+
+              CandidateProfile.profileType == 'company' ?
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new NotificationCompany()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.notifications_active, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Notifications"),
+                      ),
+                    ],
+                  ),
+                ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
+              ),
+
+
+              CandidateProfile.profileType == 'worker' ?
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new NotificationWorker()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.notifications_active, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Notifications"),
+                      ),
+                    ],
+                  ),
+                ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
+              ),
+
+              CandidateProfile.profileType == 'company' ?
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new SelectWorkPage()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.check_circle, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Selected Workers"),
+                      ),
+                    ],
+                  ),
+                ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
+              ),
+
+              CandidateProfile.profileType == 'company' ?
+              Container(
+                child: FlatButton(
+                  onPressed:() {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => new RecruitmentPageDetails()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.monetization_on, color: Color(0xffD9D24B), size: 22.0,),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Set Wages"),
+                      ),
+                    ],
+                  ),
+                ),
+              ) : SizedBox(
+                width: 0.0,
+                height: 0.0,
               ),
 
               Container(
@@ -449,7 +544,7 @@ class _HomePageState extends State<HomePage> {
                       child: RawMaterialButton(
                         onPressed: () {
                           if(CandidateProfile.profileType == 'company'){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NomineeList()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SelectWorkPage()));
                           } else {
                             _scaffoldKey.currentState.showSnackBar(
                               SnackBar(
