@@ -22,24 +22,39 @@ class _SelectedWorkersState extends State<SelectedWorkers> {
 
   List<WorkerDetails> selectedWorkerList = new List<WorkerDetails>();
 
+  Future<WorkerDetails> fetchWorkerList(String mobileNo, WorkerDetails workerDetails) async {
+    DocumentReference documentReference = Firestore.instance.document("workers/$mobileNo");
+
+    await documentReference.get().then((dataSnapshot){
+      setState(() {
+        if(dataSnapshot.exists){
+          workerDetails.caste = dataSnapshot.data['caste'];
+          workerDetails.fullName = dataSnapshot.data['full name'];
+          workerDetails.mobileNo = dataSnapshot.data['mobile no.'];
+          workerDetails.gender = dataSnapshot.data['gender'];
+          workerDetails.work = dataSnapshot.data['work'];
+          workerDetails.address = dataSnapshot.data['address'];
+          workerDetails.dateOfBirth = dataSnapshot.data['date of birth'];
+          workerDetails.isSelected = true;
+        }
+      });
+      if(workerDetails.work == typeOfWorker){
+        selectedWorkerList.add(workerDetails);
+      }
+    });
+
+    return workerDetails;
+  }
+  
   Future<List> fetchSelectedWorkerList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("contracter").document("${CandidateProfile.companyName}").collection("workers selected");
 
     await collectionReference.getDocuments().then((dataSnapshots) {
       for (int i = 0; i < dataSnapshots.documents.length ; i += 1) {
-        if(dataSnapshots.documents[i].data['work'] == typeOfWorker) {
+        if(dataSnapshots.documents[i].data['selected'] == true){
           WorkerDetails workerDetails = new WorkerDetails();
-          workerDetails.caste = dataSnapshots.documents[i].data['caste'];
-          workerDetails.fullName = dataSnapshots.documents[i].data['full name'];
-          workerDetails.mobileNo = dataSnapshots.documents[i].data['mobile no.'];
-          workerDetails.gender = dataSnapshots.documents[i].data['gender'];
-          workerDetails.work = dataSnapshots.documents[i].data['work'];
-          workerDetails.address = dataSnapshots.documents[i].data['address'];
-          workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
-          setState(() {
-            selectedWorkerList.add(workerDetails);
-          });
+            fetchWorkerList(dataSnapshots.documents[i].documentID, workerDetails);
         }
       }
     });
@@ -125,13 +140,26 @@ class NomineeContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Text(workerDetails.fullName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Text(workerDetails.fullName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                      ),
+                      workerDetails.isSelected == true ?
+                      Container(
+                        padding: EdgeInsets.only(left: 5.0),
+                        child: Icon(Icons.check_circle, size: 18.0,  color: Color(0xffaa9900),),
+                      ) :
+                      SizedBox(
+                        height: 0.0,
+                        width: 0.0,
+                      ),
+                    ]
                   ),
                   Container(
                     padding: EdgeInsets.only(top:5.0),
                     child: Text(workerDetails.mobileNo, style: TextStyle(color: Colors.black45), textAlign: TextAlign.left,),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -141,5 +169,3 @@ class NomineeContainer extends StatelessWidget {
     );
   }
 }
-
-

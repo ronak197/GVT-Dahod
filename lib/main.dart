@@ -124,7 +124,6 @@ class _HomePageState extends State<HomePage> {
                 height: 0.0,
               ),
 
-
               CandidateProfile.profileType == 'worker' ?
               Container(
                 child: FlatButton(
@@ -544,7 +543,7 @@ class _HomePageState extends State<HomePage> {
                       child: RawMaterialButton(
                         onPressed: () {
                           if(CandidateProfile.profileType == 'company'){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SelectWorkPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SelectWorkPage(selectedWorkerPage: false,)));
                           } else {
                             _scaffoldKey.currentState.showSnackBar(
                               SnackBar(

@@ -1,12 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:gvtdahod/candidateProfile.dart';
 import 'package:gvtdahod/worker_company_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   WorkerDetails workerDetails = new WorkerDetails();
   CompanyDetails companyDetails = new CompanyDetails();
 
   ProfilePage({this.workerDetails, this.companyDetails});
+
+  @override
+  ProfilePageState createState() {
+    return new ProfilePageState(workerDetails: workerDetails,companyDetails: companyDetails);
+  }
+}
+
+class ProfilePageState extends State<ProfilePage> {
+
+  WorkerDetails workerDetails = new WorkerDetails();
+  CompanyDetails companyDetails = new CompanyDetails();
+
+  bool isSelected = false;
+
+  ProfilePageState({this.workerDetails, this.companyDetails});
+
+  void changeSelection(bool value){
+    setState(() {
+      isSelected = value;
+      updateSelection();
+    });
+  }
+
+
+  Future<void> updateSelection() async{
+
+    DocumentReference documentReference = Firestore.instance.document("contracter/${CandidateProfile.username}/workers selected/${"+91 " + workerDetails.mobileNo}");
+
+    Map<String,dynamic> selectionData = <String,dynamic>{
+      "selected" : isSelected
+    };
+    await documentReference.setData(selectionData).whenComplete((){
+      print("Selection Changed");
+      setState(() {
+        workerDetails.isSelected = isSelected;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    if(CandidateProfile.profileType == 'company')
+      isSelected = workerDetails.isSelected;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +99,14 @@ class ProfilePage extends StatelessWidget {
                       CandidateProfile.profileType == 'company'
                           ? Container(
                               child: Text(
-                                workerDetails.fullName,
+                                widget.workerDetails.fullName,
                                 style: TextStyle(
                                     fontSize: 20.0, color: Colors.black54),
                               ),
                             )
                           : Container(
                               child: Text(
-                                companyDetails.companyName,
+                                widget.companyDetails.companyName,
                                 style: TextStyle(
                                     fontSize: 20.0, color: Colors.black54),
                               ),
@@ -69,7 +115,7 @@ class ProfilePage extends StatelessWidget {
                           ? Container(
                               padding: EdgeInsets.only(top: 5.0),
                               child: Text(
-                                workerDetails.work,
+                                widget.workerDetails.work,
                                 style: TextStyle(color: Colors.black45),
                                 textAlign: TextAlign.left,
                               ),
@@ -77,7 +123,7 @@ class ProfilePage extends StatelessWidget {
                           : Container(
                               padding: EdgeInsets.only(top: 5.0),
                               child: Text(
-                                companyDetails.city,
+                                widget.companyDetails.city,
                                 style: TextStyle(color: Colors.black45),
                                 textAlign: TextAlign.left,
                               ),
@@ -101,28 +147,37 @@ class ProfilePage extends StatelessWidget {
                           Icons.phone,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(workerDetails.mobileNo),
+                        title: Text(widget.workerDetails.mobileNo),
                       ),
                       ListTile(
                         leading: Icon(
                           Icons.person,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(workerDetails.gender),
+                        title: Text(widget.workerDetails.gender),
                       ),
                       ListTile(
                         leading: Icon(
                           Icons.location_on,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(workerDetails.address),
+                        title: Text(widget.workerDetails.address),
                       ),
                       ListTile(
                         leading: Icon(
                           Icons.cake,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(workerDetails.dateOfBirth),
+                        title: Text(widget.workerDetails.dateOfBirth),
+                      ),
+                      ListTile(
+                        contentPadding: EdgeInsets.only(left: 5.0),
+                        leading: Checkbox(
+                          value: isSelected,
+                          onChanged: changeSelection,
+                          activeColor: Color(0xffaa9900),
+                        ),
+                        title: Text('Select this worker'),
                       ),
                     ],
                   )
@@ -133,49 +188,49 @@ class ProfilePage extends StatelessWidget {
                           Icons.phone,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(companyDetails.contactNo),
+                        title: Text(widget.companyDetails.contactNo),
                       ),
                       ListTile(
                         leading: Icon(
                           Icons.location_on,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(companyDetails.city),
+                        title: Text(widget.companyDetails.city),
                       ),
                       ListTile(
                         leading: Icon(
                           Icons.email,
                           color: Color(0xffB7A400),
                         ),
-                        title: Text(companyDetails.email),
+                        title: Text(widget.companyDetails.email),
                       ),
                       ListTile(
                         leading: Image.asset(
                           "assets/plumber_yellow.png",
                           scale: 6,
                         ),
-                        title: Text("${companyDetails.nofplumber} plumbers with approx. wage ${companyDetails.wofplumber}"),
+                        title: Text("${widget.companyDetails.nofplumber} plumbers with approx. wage ${widget.companyDetails.wofplumber}"),
                       ),
                       ListTile(
                         leading: Image.asset(
                           "assets/painter_yellow.png",
                           scale: 7,
                         ),
-                        title: Text("${companyDetails.nofpainter} painters with approx. wage ${companyDetails.nofpainter}"),
+                        title: Text("${widget.companyDetails.nofpainter} painters with approx. wage ${widget.companyDetails.nofpainter}"),
                       ),
                       ListTile(
                         leading: Image.asset(
                           "assets/mason_yellow.png",
                           scale: 5,
                         ),
-                        title: Text("${companyDetails.nofmason} masons with approx. wage ${companyDetails.wofmason}"),
+                        title: Text("${widget.companyDetails.nofmason} masons with approx. wage ${widget.companyDetails.wofmason}"),
                       ),
                       ListTile(
                         leading: Image.asset(
                           "assets/pliers_yellow.png",
                           scale: 7,
                         ),
-                        title: Text("${companyDetails.nofbarbinder} barbinders with approx. wage ${companyDetails.wofbarbinder}"),
+                        title: Text("${widget.companyDetails.nofbarbinder} barbinders with approx. wage ${widget.companyDetails.wofbarbinder}"),
                       ),
                     ],
                   ),

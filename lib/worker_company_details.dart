@@ -7,6 +7,7 @@ class WorkerDetails {
   String gender;
   String work;
   String caste;
+  bool isSelected = false;
 }
 
 class CompanyDetails{

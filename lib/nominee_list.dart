@@ -23,10 +23,23 @@ class _NomineeListState extends State<NomineeList> {
   List<WorkerDetails> workerList = new List<WorkerDetails>();
   List<CompanyDetails> companyList = new List<CompanyDetails>();
 
+  Future<void> workerSelected(WorkerDetails workerDetails) async{
+    DocumentReference companyDocumentReference = Firestore.instance.document("contracter/${CandidateProfile.username}/workers selected/${"+91 " + workerDetails.mobileNo}");
+   await companyDocumentReference.get().then((dataSnapshot){
+     setState(() {
+       if(dataSnapshot.exists){
+         if(dataSnapshot.data['selected'] == true){
+           workerDetails.isSelected = true;
+         }
+         else workerDetails.isSelected = false;
+       } else workerDetails.isSelected = false;
+     });
+    });
+  }
+
   Future<List> fetchWorkerList() async {
 
     CollectionReference collectionReference = Firestore.instance.collection("workers");
-
       await collectionReference.getDocuments().then((dataSnapshots) {
         for (int i = 0; i < dataSnapshots.documents.length ; i += 1) {
           if(dataSnapshots.documents[i].data['work'] == typeOfWorker) {
@@ -38,6 +51,7 @@ class _NomineeListState extends State<NomineeList> {
             workerDetails.work = dataSnapshots.documents[i].data['work'];
             workerDetails.address = dataSnapshots.documents[i].data['address'];
             workerDetails.dateOfBirth = dataSnapshots.documents[i].data['date of birth'];
+            workerSelected(workerDetails);
             setState(() {
               workerList.add(workerDetails);
             });
@@ -164,12 +178,24 @@ class NomineeContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CandidateProfile.profileType == 'worker' ?
-                  Container(
-                    child: Text(companyDetails.companyName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
-                  ) :
-                  Container(
-                    child: Text(workerDetails.fullName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                  Row(
+                    children: <Widget>[
+                      CandidateProfile.profileType == 'worker' ?
+                      Container(
+                        child: Text(companyDetails.companyName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                      ) :
+                      Container(
+                        child: Text(workerDetails.fullName, style: TextStyle(fontSize: 18.0, color: Colors.black54),),
+                      ),
+                      workerDetails.isSelected == true ?
+                      Container(
+                        padding: EdgeInsets.only(left: 5.0),
+                        child: Icon(Icons.check_circle, size: 18.0,  color: Color(0xffaa9900),),
+                      ) : SizedBox(
+                        width: 0.0,
+                        height: 0.0,
+                      ),
+                    ],
                   ),
                   CandidateProfile.profileType == 'company' ?
                   Container(
@@ -189,5 +215,3 @@ class NomineeContainer extends StatelessWidget {
     );
   }
 }
-
-

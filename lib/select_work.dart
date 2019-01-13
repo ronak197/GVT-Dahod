@@ -8,7 +8,7 @@ class SelectWorkPage extends StatefulWidget {
 
   SelectWorkPage({this.selectedWorkerPage});
   @override
-  _SelectWorkPageState createState() => _SelectWorkPageState();
+  _SelectWorkPageState createState() => _SelectWorkPageState(selectedWorkerPage: selectedWorkerPage);
 }
 
 class _SelectWorkPageState extends State<SelectWorkPage> {
