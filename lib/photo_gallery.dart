@@ -19,38 +19,74 @@ class PhotoGalleryPageState extends State<PhotoGalleryPage> {
   PhotoGalleryPageState({this.folderName});
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
   String folderName;
-
   List<String> photoImageUrls = new List<String>();
+  FirebaseApp app;
+  FirebaseStorage storage;
+  bool imageUrlsFetched = false;
 
   Future<void> runGallery() async {
-    try{
 
-      final FirebaseApp app = await FirebaseApp.configure(
-        name: 'gvt-dahod',
-        options: FirebaseOptions(
-          googleAppID: '1:930494475156:android:a0b17940cb01ac02',
-          gcmSenderID: '930494475156',
-          apiKey: 'AIzaSyAV6x7tH3l3xwSS1c1cMaBU-6WBWsb7LZs',
-          projectID: 'gvt-dahod',
-        ),
-      );
-      final FirebaseStorage storage = FirebaseStorage(
-          app: app,
-          storageBucket: 'gs://gvt-dahod.appspot.com'
-      );
+    app = await FirebaseApp.configure(
+      name: 'gvt-dahod',
+      options: FirebaseOptions(
+        googleAppID: '1:930494475156:android:a0b17940cb01ac02',
+        gcmSenderID: '930494475156',
+        apiKey: 'AIzaSyAV6x7tH3l3xwSS1c1cMaBU-6WBWsb7LZs',
+        projectID: 'gvt-dahod',
+      ),
+    );
 
-      for(int i=1; i<2; i+=1){
-        StorageReference ref = storage.ref().child(folderName).child('$folderName ($i).jpg');
+    storage = FirebaseStorage(
+        app: app,
+        storageBucket: 'gs://gvt-dahod.appspot.com'
+    );
 
-        String url = (await ref.getDownloadURL()).toString();
+    await fetchImageUrls();
+  }
 
+  Future<void> fetchImageUrls() async {
+    for(int i=1; i<2; i+=1){
+      StorageReference ref = storage.ref().child(folderName).child('$folderName ($i).jpg');
+
+      String url = (await ref.getDownloadURL()).toString();
+
+      setState(() {
         photoImageUrls.add(url);
-      }
-    }catch(e){
-      print(e);
+      });
     }
+  }
+
+  Widget showLoading(BuildContext context)  {
+
+    return Center(
+      child: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))
+          ),
+          contentPadding: EdgeInsets.all(0.0),
+          content: Container(
+              width: 250.0,
+              height: 100.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(
+                      width: 15.0
+                  ),
+                  Text(
+                    "Loading ...",
+                    style: TextStyle(
+                        fontFamily: "OpenSans",
+                        color: Color(0xFF5B69778)
+                    ),
+                  )
+                ],
+              )
+          )
+      ),
+    );
   }
 
   @override
@@ -59,6 +95,7 @@ class PhotoGalleryPageState extends State<PhotoGalleryPage> {
     runGallery();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -78,7 +115,7 @@ class PhotoGalleryPageState extends State<PhotoGalleryPage> {
           },
         ),
       ),
-      body: Container(
+      body: imageUrlsFetched ? Container(
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Wrap(
@@ -96,7 +133,8 @@ class PhotoGalleryPageState extends State<PhotoGalleryPage> {
             ],
           ),
         ),
-      ),
+      ) :
+      showLoading(context),
     );
   }
 }

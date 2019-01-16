@@ -9,7 +9,6 @@ import 'package:gvtdahod/photo_gallery.dart';
 
 
 class GalleryPage extends StatefulWidget {
-
   @override
   GalleryPageState createState() {
     return new GalleryPageState();
@@ -17,13 +16,18 @@ class GalleryPage extends StatefulWidget {
 }
 
 class GalleryPageState extends State<GalleryPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<String> coverImageUrls = new List<String>();
+
+  FirebaseApp app;
+  FirebaseStorage storage;
+
+  bool imagesFetched = false;
 
   Future<void> runGallery() async {
   try {
-    final FirebaseApp app = await FirebaseApp.configure(
+    app = await FirebaseApp.configure(
       name: 'gvt-dahod',
       options: FirebaseOptions(
         googleAppID: '1:930494475156:android:a0b17940cb01ac02',
@@ -33,11 +37,19 @@ class GalleryPageState extends State<GalleryPage> {
       ),
     );
 
-    final FirebaseStorage storage = FirebaseStorage(
+    storage = FirebaseStorage(
         app: app,
         storageBucket: 'gs://gvt-dahod.appspot.com'
     );
 
+    await getImages();
+
+  } catch(e){
+    print(e);
+  }
+  }
+
+  Future<void> getImages() async {
     StorageReference ref0 = storage.ref().child('mason').child(
         'mason_cover.jpg');
     StorageReference ref1 = storage.ref().child('plumber').child(
@@ -57,17 +69,48 @@ class GalleryPageState extends State<GalleryPage> {
       coverImageUrls.add(url1);
       coverImageUrls.add(url2);
       coverImageUrls.add(url3);
+      imagesFetched = true;
     });
-  } catch(e){
-    print(e);
-  }
   }
 
   @override
-  void initState() {
+  void initState(){
     coverImageUrls = [];
     runGallery();
     super.initState();
+  }
+
+
+  Widget showLoading(BuildContext context)  {
+
+    return Center(
+        child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))
+            ),
+            contentPadding: EdgeInsets.all(0.0),
+            content: Container(
+                width: 250.0,
+                height: 100.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    SizedBox(
+                        width: 15.0
+                    ),
+                    Text(
+                      "Loading ...",
+                      style: TextStyle(
+                          fontFamily: "OpenSans",
+                          color: Color(0xFF5B69778)
+                      ),
+                    )
+                  ],
+                )
+            )
+        ),
+      );
   }
 
   @override
@@ -89,129 +132,53 @@ class GalleryPageState extends State<GalleryPage> {
           },
         ),
       ),
-      body: Container(
+      body: imagesFetched ? Container(
         margin: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Wrap(
             runSpacing: 7.0,
             spacing: 7.0,
             children: <Widget>[
-              Hero(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoGalleryPage(folderName: 'plumber',)));
-                  },
-                  child: FractionallySizedBox(
-                    child: Container(
-                      child: Text("Plumber",
-                        style: TextStyle(color: Colors.white, fontSize: 19.0),),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(coverImageUrls[0]),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.4),
-                                BlendMode.srcOver)
-                        ),
-                      ),
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(10.0),
-                    ),
-                    widthFactor: 0.48,
-                  ),
-                ),
-                tag: 'plumber',
-              ),
-              Hero(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoGalleryPage(folderName: 'painter',)));
-                  },
-                  child: FractionallySizedBox(
-                    child: Container(
-                      child: Text("Painter",
-                        style: TextStyle(color: Colors.white, fontSize: 19.0),),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(coverImageUrls[1]),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.4),
-                                BlendMode.srcOver)
-                        ),
-                      ),
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(10.0),
-                    ),
-                    widthFactor: 0.48,
-                  ),
-                ),
-                tag: 'painter',
-              ),
-              Hero(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoGalleryPage(folderName: 'mason',)));
-                  },
-                  child: FractionallySizedBox(
-                    child: Container(
-                      child: Text("Mason",
-                        style: TextStyle(color: Colors.white, fontSize: 19.0),),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(coverImageUrls[2]),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.4),
-                                BlendMode.srcOver)
-                        ),
-                      ),
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(10.0),
-                    ),
-                    widthFactor: 0.48,
-                  ),
-                ),
-                tag: 'mason',
-              ),
-              Hero(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoGalleryPage(folderName: 'barbinder',)));
-                  },
-                  child: FractionallySizedBox(
-                    child: Container(
-                      child: Text("Barbinder",
-                        style: TextStyle(color: Colors.white, fontSize: 19.0),),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(coverImageUrls[3]),
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.4),
-                                BlendMode.srcOver)
-                        ),
-                      ),
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(10.0),
-                    ),
-                    widthFactor: 0.48,
-                  ),
-                ),
-                tag: 'barbinder',
-              ),
-            ],
+              folderBox(context,'Plumber',coverImageUrls[0]),
+              folderBox(context,'Painter',coverImageUrls[1]),
+              folderBox(context,'Mason',coverImageUrls[2]),
+              folderBox(context,'Barbinder',coverImageUrls[3]),
+            ]
           ),
         ),
-      ),
+      ) :
+      showLoading(context),
     );
   }
+}
+
+Widget folderBox(BuildContext context,String folderName, String imageUrl){
+  return Hero(
+    child: InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoGalleryPage(folderName: folderName,)));
+      },
+      child: FractionallySizedBox(
+        child: Container(
+          child: Text(folderName,
+            style: TextStyle(color: Colors.white, fontSize: 19.0),),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(imageUrl),
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.4),
+                    BlendMode.srcOver)
+            ),
+          ),
+          height: 150.0,
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(10.0),
+        ),
+        widthFactor: 0.48,
+      ),
+    ),
+    tag: folderName,
+  );
 }
